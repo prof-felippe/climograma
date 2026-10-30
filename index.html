@@ -1,0 +1,720 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Jogo de Geografia: leia o climograma e descubra a cidade. 105 cidades, 3 níveis, cronômetro, ranking e explicação da classificação de Köppen-Geiger. Por Prof. Felippe."><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230A3C52' stroke='%23F2A900' stroke-width='3'/%3E%3Cg fill='%237DBDEB'%3E%3Crect x='15' y='36' width='6' height='10' rx='1.5'/%3E%3Crect x='23' y='32' width='6' height='14' rx='1.5'/%3E%3Crect x='31' y='29' width='6' height='17' rx='1.5'/%3E%3Crect x='39' y='34' width='6' height='12' rx='1.5'/%3E%3Crect x='47' y='38' width='6' height='8' rx='1.5'/%3E%3C/g%3E%3Cpolyline points='18,27 26,22 34,17 42,22.500000 50,27.500000' fill='none' stroke='%23FF8470' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><title>Climograma Quiz</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=IBM+Plex+Mono:wght@500;600&family=Nunito:wght@400;600;700;800;900&display=swap">
+<style>
+:root{
+  --bg:#F4EFE1;--bgg:rgba(23,40,58,.06);--card:#FFFDF7;--card2:#F8F3E5;--ink:#17283A;--mut:#566676;--line:#D8CFB7;--grid:#E3DBC4;
+  --hero1:#0B4F6C;--hero2:#0B7078;--onhero:#FFFFFF;
+  --brand:#0B6E75;--amber:#F2A900;--amberd:#B07800;--onamber:#1D1600;
+  --rain:#2B7BBA;--rain2:#7DBDEB;--temp:#D63A2B;
+  --ok:#1B7A4B;--okbg:#DDF3E6;--bad:#B3341F;--badbg:#FBE4DF;
+  --shadow:0 1px 0 rgba(23,40,58,.06),0 14px 28px -18px rgba(23,40,58,.45);
+  --kA:#C0391B;--kB:#EDB92E;--kC:#36803A;--kD:#33709C;--kE:#5E6F86;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;--sans:"Nunito",ui-rounded,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0A1522;--bgg:rgba(150,195,230,.06);--card:#112133;--card2:#0E1C2C;--ink:#E8EEF6;--mut:#9DB0C3;--line:#26405A;--grid:#1D3247;
+  --hero1:#0E3A52;--hero2:#0B5560;--onhero:#FFFFFF;
+  --brand:#3CC3BC;--amber:#FFC83D;--amberd:#A67600;--onamber:#1B1400;
+  --rain:#3F93D8;--rain2:#8CCBF5;--temp:#FF8470;
+  --ok:#4FD69C;--okbg:#113A2B;--bad:#FF8F85;--badbg:#42211F;
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 14px 28px -18px rgba(0,0,0,.8);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A1522;--bgg:rgba(150,195,230,.06);--card:#112133;--card2:#0E1C2C;--ink:#E8EEF6;--mut:#9DB0C3;--line:#26405A;--grid:#1D3247;
+  --hero1:#0E3A52;--hero2:#0B5560;--onhero:#FFFFFF;
+  --brand:#3CC3BC;--amber:#FFC83D;--amberd:#A67600;--onamber:#1B1400;
+  --rain:#3F93D8;--rain2:#8CCBF5;--temp:#FF8470;
+  --ok:#4FD69C;--okbg:#113A2B;--bad:#FF8F85;--badbg:#42211F;
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 14px 28px -18px rgba(0,0,0,.8);
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);background-image:linear-gradient(var(--bgg) 1px,transparent 1px),linear-gradient(90deg,var(--bgg) 1px,transparent 1px);background-size:26px 26px;color:var(--ink);font:400 16px/1.5 var(--sans);-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-family:var(--serif);font-weight:900;text-wrap:balance;letter-spacing:-.01em}
+.wrap{width:100%;max-width:1060px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.mono{font-family:var(--mono)}
+.mu{color:var(--mut)}
+.small{font-size:.88rem}
+
+/* cabeçalho */
+.hero{background:linear-gradient(120deg,var(--hero1),var(--hero2));color:var(--onhero);position:relative;overflow:hidden;border-bottom:4px solid var(--amber)}
+.hero::after{content:"";position:absolute;right:-60px;top:-70px;width:300px;height:300px;border-radius:50%;border:1px dashed rgba(255,255,255,.28);box-shadow:inset 0 0 0 28px rgba(255,255,255,.04),inset 0 0 0 29px rgba(255,255,255,.18),inset 0 0 0 60px rgba(255,255,255,.03);pointer-events:none}
+.hero-in{display:flex;align-items:center;gap:16px;padding-block:20px 22px;position:relative;z-index:1}
+.emb{flex:none;width:68px;height:68px}
+.hero-tx{min-width:0;flex:1}
+.kick{font:600 .72rem/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.hero h1{font-size:clamp(1.7rem,5vw,2.6rem);line-height:1.05;margin:4px 0 4px}
+.tag{opacity:.92;max-width:46ch}
+.by{flex:none;display:inline-block;transform:rotate(-3deg);padding:5px 14px;border:2px solid var(--amber);border-radius:10px;color:var(--amber);font:600 .85rem var(--mono);letter-spacing:.06em;text-transform:uppercase;background:rgba(0,0,0,.14);white-space:nowrap}
+body.compact .hero-in{padding-block:10px}
+body.compact .emb{width:40px;height:40px}
+body.compact .kick,body.compact .tag{display:none}
+body.compact .hero h1{font-size:1.3rem;margin:0}
+body.compact .by{font-size:.72rem;padding:3px 10px}
+body.compact .hero::after{display:none}
+@media (max-width:620px){
+  .hero-in{flex-wrap:wrap;gap:10px 12px;align-items:flex-start}
+  .hero-tx{flex:1 1 220px}
+  .kick{font-size:.64rem;letter-spacing:.09em}
+  .by{order:3;margin-left:68px;margin-top:2px}
+  .emb{width:56px;height:56px}
+  body.compact .hero-in{flex-wrap:nowrap;align-items:center}
+  body.compact .hero-tx{flex:1 1 0}
+  body.compact .by{order:0;margin:0}
+}
+
+main{padding-block:22px 48px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);position:relative}
+.card+.card{margin-top:16px}
+.lab{font:600 .72rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin-bottom:10px;display:block}
+.card h2{font-size:1.35rem;line-height:1.2;margin-bottom:8px}
+.grid2{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+.grid2>.card{margin:0}
+.stack{display:grid;gap:16px;align-content:start}
+.stack>.card{margin:0}
+@media (min-width:900px){
+  .grid2.home{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+  .grid2.play{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:start}
+  .card{padding:24px}
+}
+
+/* botões */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:14px;border:0;background:var(--amber);color:var(--onamber);font-weight:800;box-shadow:0 4px 0 var(--amberd);transition:transform .08s,box-shadow .08s}
+.btn:hover:not(:disabled){filter:brightness(1.05)}
+.btn:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--amberd)}
+.btn.big{width:100%;font-size:1.08rem;padding:14px 22px;margin-top:16px}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line);box-shadow:none;font-weight:700;padding:10px 18px}
+.btn.ghost:hover:not(:disabled){border-color:var(--brand)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.sm{padding:8px 14px;font-size:.9rem}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row.c{justify-content:center}
+a.btn{text-decoration:none}
+a.lnk{color:var(--brand);font-weight:700;text-underline-offset:3px}
+
+/* Köppen-Geiger */
+.kop{grid-column:1/-1}
+.kop-top{display:grid;gap:12px;align-items:center}
+.kop-links{display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center}
+.kop details{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px}
+.kop summary{cursor:pointer;font-weight:800;list-style:none;display:flex;align-items:center;gap:8px;width:fit-content;padding:4px 0}
+.kop summary::-webkit-details-marker{display:none}
+.kop summary::before{content:"";width:8px;height:8px;border-right:2.5px solid var(--brand);border-bottom:2.5px solid var(--brand);transform:rotate(-45deg);transition:transform .15s;margin-right:4px}
+.kop details[open] summary::before{transform:rotate(45deg)}
+.kgrid{display:grid;gap:18px;margin:12px 0 4px}
+.kcol h4{font:600 .72rem/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin:0 0 8px}
+.kcol ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.kcol li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;font-size:.9rem;line-height:1.4}
+.kb{display:inline-grid;place-items:center;min-width:1.9em;height:1.9em;padding:0 4px;border-radius:7px;font:700 .85rem var(--mono);color:#fff;background:var(--kE)}
+.kb.A{background:var(--kA)}.kb.B{background:var(--kB);color:#1D1600}.kb.C{background:var(--kC)}.kb.D{background:var(--kD)}.kb.E{background:var(--kE)}
+.kb.n{background:var(--card2);color:var(--ink);border:1px solid var(--line)}
+.kcol li b{font-weight:800}
+.kex{display:grid;gap:6px;margin-top:14px;padding:10px 12px;border-radius:12px;background:var(--card2);border:1px solid var(--line)}
+@media (min-width:760px){.kop-top{grid-template-columns:minmax(0,1fr) auto}.kgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* níveis */
+.lvs{display:grid;gap:10px;margin:6px 0 4px}
+.lv{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;align-items:center;text-align:left;padding:12px 14px;border:2px solid var(--line);border-radius:14px;background:var(--card);transition:border-color .12s,transform .12s}
+.lv:hover{border-color:var(--brand)}
+.lv[aria-pressed="true"]{border-color:var(--amber);background:var(--card2);box-shadow:0 0 0 3px color-mix(in srgb,var(--amber) 30%,transparent)}
+.lv .th{grid-row:span 2;width:26px;height:40px}
+.lv b{font:900 1.1rem var(--serif)}
+.lv small{color:var(--mut);display:block;line-height:1.35}
+.th .tb{fill:var(--card);stroke:var(--ink);stroke-width:1.6}
+.th .hg{fill:var(--temp)}
+.th1 .hg{fill:var(--rain)}.th2 .hg{fill:var(--amber)}
+.sw{display:flex;gap:12px;align-items:center;padding:12px 14px;border:2px solid var(--line);border-radius:14px;cursor:pointer;margin-top:10px}
+.sw input{position:absolute;opacity:0;width:1px;height:1px}
+.sw .knob{flex:none;width:46px;height:26px;border-radius:99px;background:var(--line);position:relative;transition:background .15s}
+.sw .knob::after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.35);transition:transform .15s}
+.sw input:checked+.knob{background:var(--brand)}
+.sw input:checked+.knob::after{transform:translateX(20px)}
+.sw input:focus-visible+.knob{outline:3px solid var(--brand);outline-offset:2px}
+.sw b{display:block}
+.sw small{display:block;color:var(--mut);line-height:1.35}
+
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:var(--card2);border:1px solid var(--line);font-size:.84rem;font-weight:700}
+.chip i{display:inline-block}
+.chip .a{width:12px;height:12px;border-radius:3px;background:var(--rain)}
+.chip .b{width:16px;height:4px;border-radius:2px;background:var(--temp)}
+.pbar{height:10px;border-radius:99px;background:var(--card2);border:1px solid var(--line);overflow:hidden}
+.pbar>i{display:block;height:100%;background:linear-gradient(90deg,var(--rain),var(--brand));border-radius:99px}
+.steps-list{margin:0;padding-left:1.1rem;display:grid;gap:4px}
+
+/* HUD */
+.hud{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin-bottom:16px;box-shadow:var(--shadow)}
+.hud-r{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hud .sp{flex:1}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:2px 11px;border-radius:99px;background:var(--card2);border:1px solid var(--line);font-weight:800;font-size:.88rem;white-space:nowrap}
+.pill.hot{background:var(--amber);color:var(--onamber);border-color:transparent;animation:pp .4s}
+.pill.xit{cursor:pointer;color:var(--mut);padding:2px 10px}
+.pill.xit:hover{border-color:var(--brand);color:var(--ink)}
+.pill.xit.ask{background:var(--badbg);border-color:var(--bad);color:var(--bad)}
+.plot:focus-visible{outline-offset:-2px}
+.ficha{font:600 .85rem var(--mono);letter-spacing:.04em}
+.steps{display:flex;gap:4px;margin-top:8px}
+.steps i{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.steps i.d{background:var(--brand)}.steps i.c{background:var(--amber)}
+.thermo{display:flex;align-items:center;gap:0;margin-top:9px}
+.thermo .bulb{flex:none;width:20px;height:20px;border-radius:50%;background:var(--merc);border:2px solid var(--ink);position:relative;z-index:1}
+.thermo .tube{flex:1;height:12px;border-radius:0 99px 99px 0;border:2px solid var(--ink);border-left:0;background:var(--card);overflow:hidden;margin-left:-6px}
+.thermo .mer{height:100%;width:0;background:var(--merc);transition:width .12s linear}
+.thermo b{font:600 .92rem var(--mono);min-width:4.2ch;text-align:right;margin-left:10px}
+.thermo.low b{color:var(--bad)}
+
+/* gráfico */
+.q{font-size:1.2rem;line-height:1.25;margin-bottom:10px}
+.plot{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:8px 6px 4px;min-height:240px;touch-action:pan-y}
+.plot svg{display:block;width:100%;height:auto;overflow:visible;user-select:none}
+.plot text{font-family:var(--mono);font-size:11px;fill:var(--mut)}
+.plot text.tc{fill:var(--temp);font-weight:600;font-size:11.5px}
+.plot text.pc{fill:var(--rain);font-weight:600;font-size:11.5px}
+.plot .gl{stroke:var(--grid);stroke-width:1}
+.plot .gz{stroke:var(--mut);stroke-width:1;stroke-dasharray:4 4;opacity:.8}
+.plot .ax{stroke:var(--ink);stroke-width:1.2;opacity:.55}
+.plot .hl{fill:var(--amber);opacity:0}
+.plot .hl.on{opacity:.2}
+.bar{transform-box:fill-box;transform-origin:50% 100%;animation:gr .8s cubic-bezier(.2,.9,.25,1) both}
+.ln{stroke-dasharray:1 2;stroke-dashoffset:1;animation:dr 1.1s .4s ease forwards}
+.dt{animation:pp .35s both;transform-box:fill-box;transform-origin:center}
+.still .bar,.still .ln,.still .dt{animation:none}
+.still .ln{stroke-dasharray:none;stroke-dashoffset:0}
+.readout{min-height:2.4em;margin-top:8px;font:500 .88rem/1.4 var(--mono);color:var(--mut);display:flex;gap:6px 14px;flex-wrap:wrap;align-items:center}
+.readout b{color:var(--ink)}
+.readout .rt{color:var(--temp);font-weight:600}
+.readout .rp{color:var(--rain);font-weight:600}
+.legend{margin-top:8px}
+
+/* opções */
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;padding:11px 14px;min-height:58px;border:2px solid var(--line);border-radius:14px;background:var(--card);box-shadow:0 3px 0 var(--line);transition:transform .1s,border-color .1s,opacity .2s}
+.opt:hover:not(:disabled){transform:translateY(-2px);border-color:var(--brand)}
+.opt:active:not(:disabled){transform:translateY(2px);box-shadow:none}
+.opt .let{flex:none;width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font:600 .95rem var(--mono)}
+.opt .nm{min-width:0;font:900 1.08rem/1.2 var(--serif)}
+.opt small{display:block;font:500 .78rem/1.3 var(--mono);color:var(--mut);margin-top:2px;letter-spacing:.02em}
+.opt:disabled{cursor:default}
+.opt.ok{background:var(--okbg);border-color:var(--ok);box-shadow:0 3px 0 var(--ok);animation:pp .5s}
+.opt.ok .let{background:var(--ok);border-color:var(--ok);color:var(--card)}
+.opt.no{background:var(--badbg);border-color:var(--bad);box-shadow:0 3px 0 var(--bad);animation:sk .4s}
+.opt.no .let{background:var(--bad);border-color:var(--bad);color:var(--card)}
+.opt.dim{opacity:.55}
+.hintrow{margin-top:14px}
+.hint{margin-top:10px;padding:10px 14px;border-left:4px solid var(--amber);background:var(--card2);border-radius:0 10px 10px 0;font-size:.95rem}
+.hint[hidden]{display:none}
+.ph{margin:10px 0 2px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.ph .bx{position:relative;height:clamp(180px,42vw,260px);background:var(--card2);overflow:hidden}
+.ph img{display:block}
+.ph .bg{position:absolute;inset:-14px;width:calc(100% + 28px);height:calc(100% + 28px);object-fit:cover;filter:blur(14px) saturate(1.1);opacity:.75}
+.ph .fg{position:relative;width:100%;height:100%;object-fit:contain}
+.ph.cv .fg{object-fit:cover;object-position:center 40%}
+.ph.cv .bg{display:none}
+.ph figcaption{padding:6px 10px;font-size:.74rem;line-height:1.35;color:var(--mut)}
+.ph figcaption a{color:var(--brand);font-weight:700}
+
+/* feedback e carimbo */
+.fb{margin-top:16px;padding:14px 16px;border-radius:14px;border:2px solid;animation:pp .35s}
+.fb.ok{background:var(--okbg);border-color:var(--ok)}
+.fb.no{background:var(--badbg);border-color:var(--bad)}
+.fb-h{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+.fb-h h3{font-size:1.2rem;line-height:1.2;flex:1;min-width:10ch}
+.stamp{display:inline-block;padding:4px 10px;border:3px double currentColor;border-radius:8px;font:600 .74rem/1.1 var(--mono);letter-spacing:.14em;text-transform:uppercase;transform:rotate(-6deg);animation:st .5s cubic-bezier(.2,1.5,.4,1) both;background:transparent}
+.fb.ok .stamp{color:var(--ok)}.fb.no .stamp{color:var(--bad)}
+.fb p+p,.fb .chips{margin-top:8px}
+.fb .src{font-size:.82rem;color:var(--mut);margin-top:12px}
+.fb .pts{font-weight:800}
+
+/* fim, ranking, diário */
+.end-top{text-align:center}
+.end-top .emb{width:84px;height:84px;margin:0 auto 6px;display:block}
+.end-top h2{font-size:1.7rem}
+.stars{font-size:1.7rem;color:var(--amber);letter-spacing:5px;margin-top:2px}
+.stars span{color:var(--line)}
+.score{font:900 2.6rem/1.1 var(--serif);margin-top:4px}
+.score small{font:600 1rem var(--mono);color:var(--mut)}
+.rv{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.rv+.rv{margin-top:8px}
+.rv p{font-size:.92rem;margin-top:3px}
+.form{display:grid;gap:10px;margin-top:6px}
+.inp{width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--line);background:var(--card);font-weight:700}
+.chk{display:flex;gap:8px;align-items:center;font-size:.9rem}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tab{padding:7px 14px;border-radius:99px;border:2px solid var(--line);background:transparent;font-weight:800;font-size:.9rem}
+.tab[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--card)}
+table.rk{width:100%;border-collapse:collapse}
+.rk th{font:600 .7rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mut);text-align:left;padding:4px 8px}
+.rk td{padding:9px 8px;border-top:1px solid var(--line)}
+.rk td.n{font-weight:800;overflow-wrap:anywhere}
+.rk td.num{font-family:var(--mono);font-weight:600;text-align:right;white-space:nowrap}
+.rk th.num{text-align:right}
+.rk tr.me td{background:color-mix(in srgb,var(--amber) 22%,transparent)}
+.rk .pos{width:2.4em;font-family:var(--mono);font-weight:600}
+.empty{padding:18px;text-align:center;color:var(--mut);border:2px dashed var(--line);border-radius:12px}
+.cont{margin-top:16px}
+.cont h3{font-size:1rem;margin-bottom:8px;display:flex;justify-content:space-between;gap:8px}
+.cont h3 span{font:600 .8rem var(--mono);color:var(--mut)}
+.city{padding:4px 11px;border-radius:99px;font-size:.84rem;font-weight:800;border:1px solid var(--line);background:var(--card2)}
+.city.on{background:var(--okbg);border-color:var(--ok);color:var(--ink)}
+.city.off{color:var(--mut);font-weight:600;border-style:dashed}
+.city small{font:500 .7rem var(--mono);color:var(--mut);margin-left:4px}
+
+.boom{position:fixed;left:50%;top:55%;pointer-events:none;z-index:50}
+.boom i{position:absolute;width:9px;height:14px;border-radius:2px;animation:fly 1.1s ease-out forwards}
+@keyframes gr{from{transform:scaleY(0)}}
+@keyframes dr{to{stroke-dashoffset:0}}
+@keyframes pp{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+@keyframes sk{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
+@keyframes st{0%{transform:rotate(-6deg) scale(2);opacity:0}60%{opacity:1}100%{transform:rotate(-6deg) scale(1);opacity:1}}
+@keyframes fly{to{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.ln{stroke-dasharray:none;stroke-dashoffset:0}}
+@media (max-width:480px){
+  .card{padding:16px;border-radius:16px}
+  .q{font-size:1.1rem}
+  .hud{padding:8px 10px}
+  .hud-r{gap:6px}.hud .pill{padding:2px 8px;font-size:.8rem}.hud .ficha{font-size:.78rem;letter-spacing:0}
+  .rk td,.rk th{padding-inline:5px}
+}
+</style></head><body>
+
+<header class="hero" id="hero"><div class="wrap hero-in">
+  <svg class="emb" viewBox="0 0 64 64" aria-hidden="true">
+    <circle cx="32" cy="32" r="30" fill="#0A3C52" stroke="#F2A900" stroke-width="2.5"/>
+    <circle cx="32" cy="32" r="25" fill="none" stroke="#F2A900" stroke-width="1" stroke-dasharray="1.5 3.6" opacity=".8"/>
+    <g fill="#7DBDEB"><rect x="15" y="36" width="5.5" height="10" rx="1.5"/><rect x="22.5" y="32" width="5.5" height="14" rx="1.5"/><rect x="30" y="29" width="5.5" height="17" rx="1.5"/><rect x="37.5" y="34" width="5.5" height="12" rx="1.5"/><rect x="45" y="38" width="5.5" height="8" rx="1.5"/></g>
+    <polyline points="17.7,27 25.2,22 32.7,17 40.2,22.5 47.7,27.5" fill="none" stroke="#FF8470" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#FF8470" stroke="#0A3C52" stroke-width="1.2"><circle cx="17.7" cy="27" r="2.2"/><circle cx="25.2" cy="22" r="2.2"/><circle cx="32.7" cy="17" r="2.2"/><circle cx="40.2" cy="22.5" r="2.2"/><circle cx="47.7" cy="27.5" r="2.2"/></g>
+    <path d="M32 3.5 35 9H29Z" fill="#F2A900"/>
+  </svg>
+  <div class="hero-tx"><p class="kick">Caderno de campo do meteorologista</p><h1>Climograma Quiz</h1><p class="tag">Leia o gráfico, siga as pistas e descubra a cidade.</p></div>
+  <span class="by">by Prof. Felippe</span>
+</div></header>
+<main class="wrap" id="app"></main>
+
+<script>
+const D=[["Adis Abeba","Etiópia","África","Tropical de altitude (Cwb)","Cwb","Tropical de altitude: a temperatura é amena o ano todo (15 a 19 °C) e o verão é bem chuvoso (mais de 240 mm em agosto); novembro e dezembro são secos.","Fica na África, em um planalto a mais de 2.300 m de altitude. É sede de uma organização continental, e o país usa um calendário próprio, de 13 meses.","Normal 1991–2020 (chuva: Instituto Meteorológico da Etiópia), tabela da Wikipédia",[16.3,17.6,18.6,18.8,18.8,17.5,16.5,16.4,16.6,16.5,15.9,15.5],[13.0,33.7,66.3,91.2,76.0,118.9,238.3,241.8,132.2,32.2,5.3,7.5]],["Anchorage","Estados Unidos","América do Norte","Subártico (Dsc)","Dsc","Subártico: inverno longo e frio (cerca de −8 °C em janeiro), verão curto e fresco (15 °C em julho) e pouca chuva, com mais água no fim do verão.","Fica na América do Norte, no extremo noroeste do continente, entre montanhas e um braço de mar, com noites longas no inverno. Uma corrida de trenós puxados por cães começa por ali.","Aeroporto Ted Stevens (NOAA), normal 1991–2020",[-8.4,-5.9,-3.4,3.1,8.9,13.3,15.3,14.2,9.6,2.4,-4.7,-7.0],[19,22,18,11,17,26,46,74,79,46,30,29]],["Antananarivo","Madagascar","África","Subtropical de altitude (Cwa/Cwb)","Cwa","Subtropical de altitude: verão quente e muito chuvoso (mais de 300 mm em janeiro) e inverno fresco e seco (cerca de 16 °C e apenas 5 mm em agosto).","Fica na África, na maior ilha do oceano Índico, em colinas a mais de 1.200 m de altitude, entre arrozais em terraços. Na região vivem lêmures, que não existem em quase nenhum outro lugar.","NOAA, normal 1991–2020, tabela da Wikipédia",[21.9,21.9,21.7,20.7,18.8,16.5,15.6,16.3,18.0,20.2,21.5,22.1],[312.3,236.6,156.2,44.6,14.7,5.5,6.2,5.4,7.5,39.3,117.1,226.0]],["Assunção","Paraguai","América do Sul","Subtropical úmido (Cfa)","Cfa","Subtropical úmido: chove em todos os meses (de 39 a 195 mm), com verão muito quente (28 °C em janeiro) e inverno ameno (17 °C em julho).","Fica na América do Sul, no interior do continente, às margens de um grande rio navegável. Uma língua indígena, o guarani, é falada pela maioria da população, ao lado do espanhol.","OMM e NOAA, normal 1991–2020, tabela da Wikipédia",[28.0,26.9,25.9,23.2,19.4,18.3,17.1,19.6,21.5,24.1,25.2,26.9],[132.6,146.4,131.3,151.7,134.1,70.7,48.2,38.7,79.2,157.9,195.0,176.5]],["Atenas","Grécia","Europa","Mediterrâneo seco (Csa/BSh)","BSh","Verão quente e seco, com quase nenhuma chuva de junho a agosto, e chuva concentrada no outono e no inverno.","Fica na Europa, em uma península no sul do continente, a poucos quilômetros do mar. O idioma local tem um alfabeto próprio, usado há cerca de 2.800 anos.","Estação Hellinikon (NOAA), normal 1991–2020; de abril a dezembro, a temperatura média é a média entre máxima e mínima",[9.9,10.4,12.6,16.0,20.5,25.5,28.5,28.5,24.5,20.0,15.5,12.0],[46,36,41,25,15,9,7,3,16,33,61,62]],["Auckland","Nova Zelândia","Oceania","Oceânico (Cfb)","Cfb","Oceânico: chove em todos os meses (de 58 a 137 mm), com verão ameno (20 °C em fevereiro) e inverno fresco e úmido (11 °C em julho).","Fica na Oceania, em um istmo estreito entre dois mares, em um país insular de ovelhas, vulcões e povo maori. Também é chamada de cidade das velas.","Aeroporto de Auckland (NIWA), normal 1991–2020",[20.0,20.5,18.9,16.6,14.2,12.1,11.2,11.7,13.1,14.6,16.2,18.5],[58.1,63.1,75.0,87.1,119.8,119.4,136.9,117.2,100.1,91.6,68.9,81.7]],["Bagdá","Iraque","Ásia","Desértico quente (BWh)","BWh","Deserto quente: verão extremo (36 °C de média em julho, com máximas acima de 44 °C), inverno ameno e chuva só de novembro a abril (125 mm por ano).","Fica na Ásia, em uma planície entre dois grandes rios, numa região chamada de berço da escrita. Foi fundada no século VIII e se tornou um dos maiores centros do saber da Idade Média.","OMM, normal 1991–2020, tabela da Wikipédia",[10.0,12.8,17.5,23.4,29.5,33.4,35.8,35.3,31.2,25.1,16.5,11.7],[24.6,16.6,15.7,16.2,3.3,0,0,0,0.1,7.6,23.6,17.0]],["Bangcoc","Tailândia","Ásia","Tropical com estação seca (Aw)","Aw","Tropical de monção: sempre quente (27 a 31 °C), com estação chuvosa de maio a outubro (mais de 330 mm em setembro) e inverno seco, de novembro a março.","Fica na Ásia, perto de um golfo, às margens de um rio largo, em uma cidade cortada por canais. Tem mercados flutuantes e templos de telhados dourados.","Estação Bangkok Metropolis (NOAA e Departamento Meteorológico da Tailândia), normal 1991–2020",[27.4,28.6,29.7,30.7,30.3,29.7,29.2,29.2,28.6,28.4,28.4,27.3],[23.6,21.4,51.0,93.3,216.8,198.5,189.7,227.1,335.9,288.7,44.6,11.6]],["Belo Horizonte","Brasil","América do Sul","Tropical com estação seca (Aw)","Aw","Tropical com inverno seco: o verão é chuvoso (mais de 330 mm em dezembro) e de maio a agosto quase não chove; a altitude (cerca de 850 m) deixa as temperaturas amenas.","Fica na América do Sul, em uma região de serras ricas em minério de ferro, longe do mar. Nasceu planejada no fim do século XIX e tem fama de ter mais botecos que muitas capitais.","Normal 1991–2020 (tabela da Wikipédia)",[23.7,24.0,23.5,22.6,20.6,19.6,19.4,20.5,22.0,23.0,22.7,23.3],[330.9,177.7,197.5,82.3,28.1,11.4,5.4,10.6,49.2,110.1,236.0,339.1]],["Belém","Brasil","América do Sul","Equatorial úmido (Af)","Af","Equatorial úmido: chove em todos os meses (de 120 mm em setembro a mais de 500 mm em março) e a temperatura quase não muda ao longo do ano.","Fica na América do Sul, perto da foz de um dos maiores rios do planeta, quase sobre a linha do Equador. A culinária usa tucupi e jambu, e em outubro acontece uma das maiores procissões religiosas do mundo.","Normal 1991–2020 (tabela da Wikipédia)",[26.3,26.1,26.3,26.5,26.8,26.9,26.8,27.1,27.3,27.3,27.4,27.0],[393.8,437.8,506.3,465.5,323.6,205.8,156.0,128.7,120.1,135.8,151.4,283.5]],["Berlim","Alemanha","Europa","Oceânico (Cfb)","Cfb","Oceânico de transição para continental: pouca chuva, regular o ano todo (532 mm), com inverno frio (cerca de 1 °C em janeiro) e verão ameno (20 °C em julho).","Fica na Europa, em uma planície do norte de um país, cortada por um rio e por muitos lagos. Uma muralha dividiu a cidade durante quase 30 anos.","Estação Berlim-Brandemburgo (Deutscher Wetterdienst), normal 1991–2020",[0.7,1.6,4.6,9.7,14.2,17.6,19.6,19.2,14.7,9.6,4.9,1.8],[41.5,30.0,35.9,27.7,52.8,60.2,70.0,52.4,43.6,40.3,38.8,39.1]],["Boa Vista","Brasil","América do Sul","Tropical com estação seca (Aw)","Aw","Tropical com estação seca: a época chuvosa vai de abril a agosto (mais de 340 mm em maio) e o início do ano é quase seco, o oposto do que se vê em boa parte do país.","Fica na América do Sul, no extremo norte de um país, em área de savanas e serras. É a única capital estadual inteiramente acima da linha do Equador e foi planejada em forma de leque.","Normal 1991–2020, tabela da Wikipédia (a tabela não cita a fonte)",[28.1,28.3,28.8,28.3,27.2,26.5,26.5,27.3,28.4,28.9,28.9,28.3],[29.1,32.2,39.2,146.5,347.3,335.7,208.1,220.7,98.1,67.1,69.6,60.4]],["Bogotá","Colômbia","América do Sul","Clima de altitude equatorial (Cfb)","Cfb","Clima de altitude perto do Equador: a temperatura é de cerca de 14 °C o ano todo e há duas épocas de mais chuva, em abril–maio e em outubro–novembro.","Fica na América do Sul, em um altiplano a cerca de 2.600 m, cercada por montanhas, perto da linha do Equador. Aos domingos, muitas ruas ficam fechadas para os carros e viram ciclovias.","Aeroporto El Dorado, normal 1991–2020, tabela da Wikipédia",[13.6,14.0,14.1,14.3,14.3,14.2,13.8,13.8,13.8,13.7,13.8,13.7],[32.9,51.4,83.4,116.7,109.0,57.4,48.6,44.3,56.7,108.2,107.2,61.4]],["Brasília","Brasil","América do Sul","Tropical com estação seca (Aw)","Aw","Verão chuvoso e inverno seco: de maio a setembro quase não chove. A altitude (cerca de 1.100 m) deixa as temperaturas amenas.","Fica na América do Sul, em uma região de planalto, longe do litoral. Foi construída em poucos anos, em meados do século XX.","INMET, normal 1991–2020",[21.7,21.7,21.7,21.7,20.6,19.4,19.4,21.1,22.8,23.3,21.7,21.7],[206,180,226,145,28,3,3,15,38,142,254,241]],["Buenos Aires","Argentina","América do Sul","Subtropical úmido (Cfa)","Cfa","Chuva bem distribuída o ano todo, sem estação seca, e estações térmicas bem marcadas, com inverno frio (cerca de 11 °C em julho).","Fica na América do Sul, na margem de um estuário muito largo. Recebeu grandes ondas de imigrantes europeus entre os séculos XIX e XX.","Serviço Meteorológico Nacional da Argentina (Observatório Central): temperatura 1991–2020, precipitação 1906–2023",[24.9,23.8,22.0,18.2,14.8,12.0,11.0,13.0,14.9,17.9,20.9,23.6],[139,127,140,119,92,59,61,64,72,127,117,119]],["Cairo","Egito","África","Desértico quente (BWh)","BWh","Praticamente sem chuva (cerca de 25 mm por ano) e com verão muito quente, típico de deserto.","Fica na África, no norte do continente, em um vale cortado por um grande rio. A região abriga uma das civilizações mais antigas do mundo.","Aeroporto Internacional do Cairo, normal 1991–2020, tabela da Wikipédia",[14.4,15.6,18.3,21.8,25.6,28.2,29.1,29.2,27.6,24.6,20.0,15.9],[4.8,3.8,6.3,1.3,0.2,0,0,0,0,0.7,4.3,3.4]],["Calcutá","Índia","Ásia","Tropical com estação seca (Aw)","Aw","Tropical de monção: chuvas de junho a setembro (cerca de 370 mm em julho e agosto) e inverno seco e ameno (20 °C em janeiro).","Fica na Ásia, na margem de um dos braços do delta de um grande rio. Foi capital de um império colonial europeu por mais de um século e é chamada de cidade da alegria.","Estação Alipore (Departamento Meteorológico da Índia), normal 1991–2020",[19.9,23.8,28.2,30.6,31.2,30.6,29.5,29.4,29.4,28.3,25.1,21.1],[15.4,24.6,36.8,55.0,118.5,276.7,371.6,372.1,325.0,179.6,32.6,5.6]],["Campo Grande","Brasil","América do Sul","Tropical com estação seca (Aw)","Aw","Tropical com inverno seco: o verão é chuvoso (mais de 220 mm em janeiro) e o inverno é bem menos chuvoso e mais fresco; a altitude (cerca de 600 m) modera o calor.","Fica na América do Sul, no centro-oeste de um país, com ruas largas e muitas árvores, perto de uma gigantesca planície alagável. Um prato de macarrão trazido por imigrantes japoneses de Okinawa virou símbolo local.","INMET, normal 1981–2010, tabela da Wikipédia (chuva convertida de polegadas)",[25.1,24.8,24.7,23.7,20.9,20.1,20.1,21.9,23.2,24.7,24.9,24.9],[225.3,176.0,149.6,89.4,88.1,47.5,35.8,45.5,77.7,150.6,163.8,205.7]],["Caracas","Venezuela","América do Sul","Tropical de altitude (Aw)","Aw","Tropical de altitude: temperaturas amenas o ano todo (22 a 25 °C), estação seca de janeiro a abril e chuva forte de junho a dezembro (mais de 100 mm por mês).","Fica na América do Sul, em um vale a cerca de 900 m, separado do mar do Caribe por uma serra com parque nacional. O país é um dos grandes exportadores de petróleo.","Estação La Carlota (NOAA), normal 1991–2020",[21.7,22.1,23.1,24.1,24.5,24.1,23.5,23.7,24.3,24.1,23.5,22.3],[56.1,42.5,20.7,48.1,70.2,112.6,121.1,132.7,118.4,144.3,130.0,107.4]],["Cartum","Sudão","África","Desértico quente (BWh)","BWh","Deserto quente: praticamente sem chuva (120 mm por ano, quase toda de julho a setembro) e calor extremo, com média acima de 30 °C de abril a outubro.","Fica na África, no nordeste do continente, no ponto em que dois grandes rios se encontram e formam o Nilo.","OMM e NOAA, normal 1991–2020",[23.6,25.9,29.1,32.8,35.0,34.9,32.7,31.1,32.7,32.9,28.8,25.0],[0.0,0.0,0.0,0.4,4.7,3.4,24.9,53.1,24.5,9.1,0.3,0.0]],["Chicago","Estados Unidos","América do Norte","Continental úmido de verão quente (Dfa)","Dfa","Continental úmido: inverno frio (−3 °C em janeiro), verão quente (25 °C em julho) e chuva em todos os meses (mais de 50 mm), com influência do lago.","Fica na América do Norte, à margem de um enorme lago, no centro-norte de um país. É conhecida pela arquitetura de arranha-céus, pelo jazz e pelo blues e por uma pizza de massa alta.","Aeroporto Midway (NOAA), normal 1991–2020",[-3.2,-1.2,4.4,10.5,16.6,22.2,24.8,23.9,19.9,12.9,5.8,-0.3],[58,54,68,105,121,115,102,104,85,98,69,59]],["Cidade do Cabo","África do Sul","África","Mediterrâneo (Csb/Csa)","Csa","Inverno chuvoso (junho a agosto) e verão seco (dezembro a fevereiro): o mesmo regime de Atenas, mas no hemisfério oposto.","Fica na África, na região sul do continente, perto do encontro de dois oceanos. O país tem 12 línguas oficiais.","Aeroporto Internacional da Cidade do Cabo (NOAA), normal 1991–2020",[22.2,22.2,21.1,18.3,15.6,13.3,12.8,13.3,15.0,17.2,18.9,21.1],[6,16,18,57,81,90,79,59,31,41,19,12]],["Cidade do México","México","América do Norte","Tropical de altitude (Cwb)","Cwb","Tropical de altitude: o verão é chuvoso (mais de 170 mm em agosto) e o inverno é seco (5 mm em dezembro); a altitude mantém as médias entre 15 °C e 20 °C.","Fica na América do Norte, em um vale a mais de 2.200 m de altitude, construída sobre um antigo lago. Foi a capital de um império asteca.","Estação Tacubaya (Servicio Meteorológico Nacional), normal 1991–2020",[15.4,16.9,18.6,20.3,20.4,19.8,18.8,18.9,18.4,17.6,16.4,15.4],[11.9,5.7,11.8,24.2,59.4,132.5,174.0,175.6,158.1,71.3,17.4,5.0]],["Cidade do Panamá","Panamá","América Central e Caribe","Tropical com estação seca (Aw)","Aw","Tropical com estação seca: de maio a dezembro chove muito (mais de 300 mm em outubro) e de janeiro a março chove quase nada; o calor é constante, entre 26 °C e 28 °C.","Fica na América Central, onde o continente é mais estreito, na entrada de um canal que liga dois oceanos.","Estação Tocumen (OMM), normal 1991–2020",[26.8,27.1,27.5,28.0,27.6,27.2,27.2,27.2,26.9,26.6,26.6,26.9],[24.1,12.3,14.2,71.0,221.8,242.0,189.5,221.0,268.4,311.2,258.9,124.6]],["Colombo","Sri Lanka","Ásia","Equatorial úmido (Af)","Af","Equatorial úmido: a temperatura é quase constante (27 a 29 °C) e há duas épocas de chuva forte, em abril–maio e em setembro–novembro (cerca de 350 mm em outubro e novembro).","Fica na Ásia, em uma ilha ao sul de um grande país, e há séculos é um porto do comércio de chá e especiarias.","NOAA, normal 1991–2020",[27.2,27.6,28.4,28.7,28.9,28.4,28.1,28.1,27.9,27.5,27.3,27.2],[79.6,77.4,102.7,248.9,313.6,196.7,122.6,115.5,264.2,359.3,345.8,170.7]],["Cuiabá","Brasil","América do Sul","Tropical com estação seca (Aw)","Aw","Tropical com inverno seco e muito calor: de junho a agosto chove menos de 25 mm por mês, e em nenhum mês a temperatura média fica abaixo de 23 °C.","Fica na América do Sul, bem no centro do continente, onde se encontram três grandes biomas. É a porta de entrada de uma enorme planície alagável e figura entre as capitais mais quentes do seu país.","INMET, normal 1981–2010, tabela da Wikipédia",[27.0,26.9,26.8,26.6,24.7,23.5,23.4,25.3,26.8,27.9,27.5,27.2],[247.5,220.4,217.5,117.8,50.4,19.4,16.0,22.1,51.3,114.0,172.9,205.2]],["Curitiba","Brasil","América do Sul","Oceânico de altitude (Cfb)","Cfb","Subtropical de altitude (oceânico): chove em todos os meses (nunca menos de 80 mm), os verões são amenos e os invernos são frescos, com geadas ocasionais.","Fica na América do Sul, em um planalto a pouco mais de 900 m de altitude, no sul de um país. Foi pioneira em ônibus que andam em pista exclusiva e é conhecida por seus parques e por uma ópera feita de arame.","INMET, normal 1991–2020 (tabela da Wikipédia)",[21.3,21.4,20.8,18.5,15.5,14.3,13.8,14.9,16.0,17.7,18.9,20.7],[226.3,188.7,151.3,87.9,95.6,111.6,105.8,81.5,143.3,160.7,125.6,152.4]],["Cusco","Peru","América do Sul","Tropical de altitude (Cwb)","Cwb","Tropical de altitude: verão chuvoso (mais de 150 mm em janeiro), inverno seco (apenas 3 mm em junho) e noites frias; de dia, as máximas ficam em torno de 21 °C.","Fica na América do Sul, nos Andes, a mais de 3.300 m de altitude. Foi a capital de um império de língua quéchua e é porta de entrada de uma cidadela de pedra no alto de uma montanha.","Aeroporto Alejandro Velasco Astete (NOAA), tabela da Wikipédia",[14.3,14.3,14.3,13.7,12.5,11.4,10.9,12.3,13.5,14.5,15.1,14.5],[153.4,132.1,105.9,38.4,7.1,3.3,5.9,6.6,18.0,54.5,77.3,125.2]],["Daca","Bangladesh","Ásia","Tropical com estação seca (Aw)","Aw","Tropical de monção: inverno seco e fresco (18 °C em janeiro) e verão quente e muito chuvoso (cerca de 390 mm em julho), com alagamentos frequentes.","Fica na Ásia, no maior delta fluvial do mundo, em um país muito densamente povoado. É conhecida pelo trânsito de riquixás coloridos.","NOAA e Departamento Meteorológico de Bangladesh, normal 1991–2020",[18.4,22.1,26.4,28.6,28.9,29.1,28.9,29.0,28.7,27.5,24.0,19.9],[7,21,48,128,272,317,391,315,285,174,21,11]],["Dakar","Senegal","África","Semiárido quente (BSh)","BSh","Semiárido tropical: quase não chove de novembro a junho; a chuva vem de julho a outubro (cerca de 165 mm em agosto) e o oceano suaviza as temperaturas (22 °C a 28 °C).","Fica na África, na ponta mais ocidental do continente, em uma península voltada para o Atlântico. Foi, por muitos anos, o ponto de chegada de um famoso rali de carros e motos.","Normal 1991–2020 (NOAA NCEI), tabela da Wikipédia; a temperatura média é a média entre máxima e mínima",[22.2,21.6,21.8,22.1,23.4,26.1,27.6,27.9,28.0,28.4,26.8,24.4],[1.2,0.4,0.1,0.0,0.0,7.0,52.8,165.6,138.4,26.3,0.3,0.4]],["Dar es Salaam","Tanzânia","África","Tropical com estação seca (Aw)","Aw","Tropical com duas épocas de chuva: a principal vai de março a maio (264 mm em abril) e outra, menor, em novembro e dezembro; de junho a setembro é mais seco e fresco.","Fica na África, no litoral do oceano Índico. O nome da cidade significa algo como casa da paz, em árabe, e perto dela ficam ilhas famosas pelas especiarias.","Aeroporto Julius Nyerere (NOAA), normal 1991–2020",[28.2,28.2,27.7,26.7,26.0,24.6,23.8,24.1,24.9,26.1,26.9,27.9],[54.2,70.8,169.6,263.6,172.2,31.3,15.8,17.8,20.2,77.3,114.4,110.2]],["Darwin","Austrália","Oceania","Tropical com estação seca (Aw)","Aw","Tropical com estação seca marcada: de dezembro a março chove muito (471 mm em janeiro) e de maio a setembro quase nada (1 mm em agosto), com calor constante.","Fica na Oceania, na costa norte de um país-continente, perto da Indonésia, em região de crocodilos. Foi quase destruída por um ciclone em 1974.","Aeroporto de Darwin (Bureau of Meteorology), normal 1991–2020; a temperatura média é a média entre máxima e mínima",[28.6,28.4,28.6,28.6,27.3,25.6,25.2,25.9,28.0,29.3,29.6,29.2],[470.7,412.4,313.7,105.1,20.7,2.1,0.9,0.8,14.3,68.9,143.5,279.3]],["Denver","Estados Unidos","América do Norte","Semiárido frio (BSk)","BSk","Semiárido frio: pouca chuva (367 mm por ano), invernos frios, mas ensolarados, e verões quentes; o ar seco da altitude gera grande diferença entre o dia e a noite.","Fica na América do Norte, no sopé de uma grande cordilheira, a cerca de 1.600 m de altitude, e por isso é chamada de cidade de uma milha de altura.","Aeroporto Internacional de Denver (NOAA), normal 1991–2020",[-0.2,0.4,5.3,8.8,14.1,20.1,23.9,22.7,18.2,10.6,4.1,-0.4],[9.7,10,22,43,55,49,54,40,34,25,16,8.9]],["El Alto","Bolívia","América do Sul","Clima de montanha (ET)","ET","Clima de montanha: nenhum mês passa de 10 °C de média, o verão é chuvoso (mais de 130 mm em janeiro) e o inverno é seco, com mínimas abaixo de 0 °C.","Fica na América do Sul, nos Andes, acima de 4.000 m de altitude, colada a uma cidade que é sede do governo de um país sem litoral. Seu aeroporto é um dos mais altos do mundo.","Aeroporto Internacional de El Alto, normal 1991–2020, tabela da Wikipédia",[9.4,9.4,9.1,8.3,6.6,5.3,5.1,6.0,7.5,8.8,9.7,9.9],[133.7,104.7,71.7,31.7,14.3,5.1,7.1,15.2,35.5,38.1,50.5,94.9]],["Florianópolis","Brasil","América do Sul","Subtropical úmido (Cfa)","Cfa","Subtropical úmido: chove o ano todo (nunca menos de 85 mm por mês), com verão quente e úmido e inverno ameno, por influência do oceano.","Fica na América do Sul, em uma ilha do litoral sul de um país, com dezenas de praias e uma grande lagoa. A cultura dos antigos colonos açorianos marca a culinária e o sotaque.","INMET, normal 1991–2020 (tabela da Wikipédia)",[25.2,25.3,24.4,22.4,19.5,17.2,16.5,17.4,18.7,20.6,22.3,24.2],[241.3,198.3,180.4,115.8,126.2,86.3,100.8,93.0,146.9,153.2,146.6,177.2]],["Fortaleza","Brasil","América do Sul","Tropical com estação seca (Aw)","Aw","Tropical com estação seca: de fevereiro a maio chove muito (mais de 380 mm em abril) e de agosto a novembro quase não chove; a temperatura varia pouco o ano todo.","Fica na América do Sul, no litoral norte do Nordeste de um país, com praias de dunas e falésias e jangadas coloridas. É conhecida pelo humor e pelo forró.","INMET, normal 1991–2020 (tabela da Wikipédia)",[27.4,27.3,27.0,26.8,26.8,26.4,26.2,26.6,27.0,27.4,27.7,27.8],[156.4,187.0,336.9,385.0,229.0,130.0,69.7,20.0,13.6,9.5,9.8,37.1]],["Goiânia","Brasil","América do Sul","Tropical com estação seca (Aw)","Aw","Tropical com inverno seco: chove muito de outubro a abril e quase nada de junho a agosto (julho tem só cerca de 2 mm).","Fica na América do Sul, no centro de um país, em região de cerrado. Foi planejada na década de 1930, tem muitos prédios art déco e é considerada a capital da música sertaneja.","INMET, normal 1991–2020, tabela da Wikipédia",[24.7,24.7,24.7,24.8,23.3,22.3,22.5,24.5,26.3,26.2,25.0,24.8],[249.2,235.8,258.5,137.7,30.3,8.4,1.5,9.5,44.3,144.1,219.6,271.9]],["Hanói","Vietnã","Ásia","Subtropical com inverno seco (Cwa)","Cwa","Subtropical com inverno seco: verão quente e chuvoso (mais de 300 mm em agosto) e inverno fresco, com garoa fina (17 °C em janeiro, com cerca de 22 mm de chuva).","Fica na Ásia, no delta de um rio, em um país alongado banhado pelo Mar do Sul da China. Tem um lago no centro da cidade e ruas tomadas por motocicletas.","Instituto Vietnamita de Ciência e Tecnologia da Construção, tabela da Wikipédia (período não informado)",[16.6,17.7,20.3,24.2,27.6,29.3,29.4,28.7,27.7,25.3,21.9,18.3],[22.5,24.6,47.0,91.8,185.4,253.3,280.1,309.4,228.3,140.7,66.7,20.2]],["Havana","Cuba","América Central e Caribe","Tropical de monção (Am)","Am","Tropical: não há mês seco; o verão é quente e chuvoso (cerca de 175 mm em setembro) e o inverno é mais ameno e menos chuvoso (22 °C em janeiro).","Fica no Caribe, em uma ilha grande, com carros antigos pelas ruas e um passeio à beira-mar chamado malecón.","Estação Casa Blanca, normal 1991–2020 (OMM), tabela da Wikipédia",[22.2,22.4,23.7,24.8,26.1,27.0,27.6,27.9,27.4,26.1,24.5,23.0],[56.4,58.7,53.6,58.4,120.3,168.1,125.4,145.2,175.7,140.3,82.5,57.6]],["Helsinque","Finlândia","Europa","Continental úmido de verão ameno (Dfb)","Dfb","Continental úmido suavizado pelo mar: inverno frio (−4 °C em fevereiro), verão ameno (18 °C em julho) e chuva moderada o ano todo.","Fica na Europa, na costa de um golfo do Mar Báltico, em um país de milhares de lagos. A sauna faz parte do dia a dia.","Estação Kaisaniemi (Instituto Meteorológico Finlandês), normal 1991–2020",[-3.1,-3.8,-0.7,4.4,10.4,14.9,18.1,16.9,12.3,6.6,2.4,-0.7],[53,38,34,34,38,60,57,81,56,73,69,58]],["Hong Kong","China","Ásia","Subtropical com inverno seco (Cwa)","Cwa","Subtropical de monção: verão quente e muito chuvoso (cerca de 490 mm em junho) e inverno ameno e seco (17 °C em janeiro), com tufões no fim do verão.","Fica na Ásia, na foz de um grande rio, com colinas íngremes, um porto profundo e arranha-céus. Foi administrada por um reino europeu por mais de 150 anos.","Hong Kong Observatory, normal 1991–2020",[16.5,17.1,19.5,23.0,26.3,28.3,28.9,28.7,27.9,25.7,22.2,18.2],[33.2,38.9,75.3,153.0,290.6,491.5,385.8,453.2,321.4,120.3,39.3,28.8]],["Honolulu","Estados Unidos","Oceania","Tropical seco no litoral (BSh)","BSh","Tropical oceânico com pouca chuva no litoral: os ventos alísios descarregam a chuva nas montanhas e deixam a costa mais seca (416 mm por ano); a temperatura fica entre 23 °C e 28 °C.","Fica na Oceania, em um arquipélago vulcânico no meio do Pacífico, a milhares de quilômetros de qualquer continente. É famosa pelas ondas, pela dança hula e pelo ukulele.","Aeroporto Internacional de Honolulu (NOAA), normal 1991–2020",[23.1,23.2,23.7,24.8,25.7,26.8,27.6,27.9,27.6,26.9,25.6,24.2],[47,49,60,20,21,13,13,21,22,38,57,55]],["Istambul","Turquia","Europa","Mediterrâneo (Csa)","Csa","Mediterrâneo úmido: verão quente e menos chuvoso (24 °C em agosto), inverno frio e chuvoso (mais de 120 mm em dezembro) e nenhum mês realmente seco.","Fica entre a Europa e a Ásia, às margens de um estreito que liga dois mares. Foi capital de três impérios.","Estação Kireçburnu, normal 1991–2020, tabela da Wikipédia",[5.9,6.1,8.0,11.5,16.3,21.1,23.7,24.2,20.5,16.2,11.7,7.9],[96.1,87.7,69.8,45.1,37.1,44.7,36.3,43.5,81.3,98.3,100.5,124.8]],["Jacarta","Indonésia","Ásia","Tropical de monção (Am)","Am","Tropical de monção: sempre quente (27 a 29 °C) e com chuva em todos os meses, mais forte no verão do hemisfério sul (cerca de 380 mm em fevereiro) e mais fraca em agosto (52 mm).","Fica na Ásia, em uma ilha densamente povoada, perto do Equador, em um arquipélago de milhares de ilhas. A cidade afunda lentamente, e o governo prepara a mudança da capital.","Estação Kemayoran (OMM e NOAA), normal 1991–2020",[27.5,27.3,28.0,28.4,28.7,28.4,28.2,28.3,28.6,28.8,28.4,28.0],[373.3,381.4,210.4,164.1,103.2,80.4,77.7,51.5,61.0,112.2,134.8,183.3]],["Karachi","Paquistão","Ásia","Desértico quente (BWh)","BWh","Deserto quente com influência do mar: pouca chuva (318 mm por ano), concentrada em julho e agosto (monção), e temperaturas de 19 °C em janeiro a 32 °C em junho.","Fica na Ásia, no litoral do mar da Arábia, na foz de um grande rio, em um país de maioria muçulmana. É o maior porto e a maior cidade do país.","Normal 1991–2020, tabela da Wikipédia",[18.9,21.7,25.9,29.4,31.4,32.2,30.8,29.6,29.7,29.4,25.2,20.9],[10.6,5.5,3.2,11.1,9.2,24.6,86.1,104.7,44.0,12.7,0.7,5.6]],["Kinshasa","República Democrática do Congo","África","Tropical com estação seca (Aw)","Aw","Tropical com inverno seco: chove de setembro a maio, com picos de cerca de 240 mm em abril e novembro, e quase nada de junho a agosto (2 mm em agosto).","Fica na África, na margem de um dos maiores rios do planeta, quase de frente para outra capital, do outro lado das águas. A rumba é uma das marcas da cultura local.","Aeroporto N'djili, normal 1991–2020, tabela da Wikipédia",[26.1,26.4,26.7,26.3,25.9,23.8,23.4,24.2,25.6,26.0,25.8,25.6],[163,165,221,238,142,9,5,2,49,98,247,143]],["Kuala Lumpur","Malásia","Ásia","Equatorial úmido (Af)","Af","Equatorial úmido: a temperatura é constante (27 a 28,5 °C) e a chuva é abundante o ano todo (cerca de 2.850 mm), nunca menos de 140 mm por mês.","Fica na Ásia, no sudeste do continente, em uma península. Um par de torres gêmeas que já foi o prédio mais alto do mundo domina o horizonte.","Aeroporto Sultan Abdul Aziz Shah (OMM), normal 1991–2020",[27.3,27.8,28.1,28.1,28.5,28.4,28.0,28.0,27.7,27.5,27.1,27.1],[226.7,192.8,270.4,301.5,229.9,145.8,165.2,174.3,220.3,283.8,355.8,280.6]],["Lagos","Nigéria","África","Tropical com estação seca (Aw)","Aw","Tropical úmido: calor constante (26 a 29 °C), chuva muito forte em junho (cerca de 430 mm), uma pequena pausa em agosto e período seco só em dezembro e janeiro.","Fica na África, no golfo da Guiné, entre uma laguna e o oceano, no país mais populoso do continente. Abriga uma indústria de cinema muito produtiva.","Lagos Island, normal 1991–2020 (NOAA), tabela da Wikipédia",[28.2,28.9,29.2,28.7,28.0,26.7,26.1,26.0,26.6,27.3,28.3,27.8],[10.5,40.9,68.4,145.5,235.8,433.7,208.9,91.4,217.9,189.1,51.5,9.7]],["Lhasa","China","Ásia","Semiárido frio de altitude (BSk)","BSk","Semiárido frio de altitude: o ar rarefeito e seco deixa o inverno gelado à noite (mínimas de −7 °C) e ensolarado, com chuva só no verão (cerca de 140 mm em julho).","Fica na Ásia, em um planalto a mais de 3.600 m de altitude, cercado pela cordilheira mais alta do mundo. É um centro de peregrinação budista, com um palácio branco e vermelho no topo de uma colina.","Administração Meteorológica da China, normal 1991–2020",[0.6,3.1,6.5,9.8,13.8,17.5,17.5,16.7,15.2,10.8,5.4,1.7],[0.9,1.9,3.5,8.3,31.1,84.0,140.5,129.8,64.8,6.5,0.9,0.7]],["Lima","Peru","América do Sul","Desértico costeiro (BWh)","BWh","Deserto costeiro: uma corrente marítima fria estabiliza o ar e quase não chove (cerca de 6 mm por ano), mas a umidade é alta; as temperaturas são amenas (17 a 25 °C).","Fica na América do Sul, em um deserto na costa do Pacífico, onde o céu fica coberto de nuvens baixas boa parte do ano. É famosa pela gastronomia, com peixe cru marinado em limão.","Aeroporto Jorge Chávez, normal 1991–2020 (chuva: Deutscher Wetterdienst, 1961–1990), tabela da Wikipédia",[23.7,24.6,24.2,22.2,20.2,18.6,17.8,17.3,17.5,18.5,19.8,21.6],[0.8,0.4,0.4,0.1,0.3,0.7,1.0,1.5,0.7,0.2,0.1,0.2]],["Lisboa","Portugal","Europa","Mediterrâneo (Csa)","Csa","Mediterrâneo: verão seco (apenas 3 mm em julho), inverno ameno e chuvoso (134 mm em novembro) e forte influência do Atlântico.","Fica na Europa, na foz de um grande rio, no extremo ocidental do continente. De seu porto partiram as grandes navegações do século XV, e hoje bondes amarelos sobem suas colinas.","Instituto Geofísico D. Luís (IPMA), normal 1991–2020",[11.8,12.8,14.9,16.3,18.8,21.5,23.2,23.8,22.1,19.1,15.0,12.4],[103.8,77.8,68.7,71.8,57.8,14.1,2.6,5.4,38.6,110.6,133.9,108.5]],["Londres","Reino Unido","Europa","Oceânico (Cfb)","Cfb","Chuva fraca e regular o ano todo (de 40 a 70 mm por mês), verões amenos e invernos frios, mas pouco rigorosos, pela influência do oceano.","Fica na Europa, em uma ilha, às margens de um rio que sofre influência das marés. É um dos principais centros financeiros do mundo.","Met Office, estação Kew Gardens, normal 1991–2020",[5.3,5.6,7.7,10.1,13.3,16.2,18.5,18.2,15.4,11.9,8.0,5.6],[60,45,39,44,45,50,45,55,52,68,66,59]],["Longyearbyen","Noruega","Europa","Polar de tundra (ET)","ET","Tundra polar: nenhum mês passa de 10 °C (julho tem 7 °C), o inverno chega a −12 °C e cai pouquíssima chuva ou neve (212 mm por ano), como em um deserto frio.","Fica na Europa, mas muito acima do Círculo Polar Ártico, em um arquipélago a cerca de 1.300 km do Polo Norte. Por meses o Sol não nasce, e por perto há um cofre que guarda sementes do mundo todo.","Aeroporto de Svalbard (Instituto Meteorológico da Noruega), normal 1991–2020",[-10.9,-11.6,-12.0,-8.8,-2.2,3.6,7.0,6.0,2.0,-3.8,-6.4,-9.2],[21,17,16,9,8,8,20,23,26,18,22,24]],["Los Angeles","Estados Unidos","América do Norte","Mediterrâneo seco (Csb/BSh)","BSh","Mediterrâneo seco: invernos amenos e chuvosos (cerca de 90 mm em fevereiro) e verões longos, quentes e quase sem chuva (praticamente 0 mm em agosto).","Fica na América do Norte, na costa do Pacífico, entre montanhas e o mar. A cidade abriga a indústria de cinema mais famosa do mundo.","Estação Dodger Stadium, normal 1991–2020, tabela da Wikipédia",[14.7,15.0,16.2,17.6,18.8,20.7,22.9,23.7,23.1,20.7,17.2,14.3],[84,92,57,18,8.1,2.3,0.51,0.0,3.3,15,20,63]],["Luanda","Angola","África","Semiárido costeiro (BSh)","BSh","Semiárido tropical costeiro: uma corrente marítima fria reduz a chuva (405 mm por ano), concentrada em março e abril, e deixa o inverno fresco (22 °C em julho).","Fica na África, na costa atlântica, em uma baía em forma de arco, em um país onde se fala português.","Aeroporto Quatro de Fevereiro, normal 2001–2025, tabela da Wikipédia",[27.3,27.8,28.1,27.8,26.6,23.6,22.0,22.0,23.5,25.3,26.6,27.0],[30,36,114,136,16,0,0,1,2,7,32,31]],["Madri","Espanha","Europa","Mediterrâneo continental (Csa/BSk)","BSk","Mediterrâneo continental: verão muito quente e seco (mais de 26 °C em julho), inverno frio (6,5 °C em janeiro) e pouca chuva (416 mm por ano).","Fica na Europa, em um planalto no centro de uma península, longe do mar, a mais de 600 m de altitude. É a capital de um país cuja língua é falada em mais de 20 nações.","Parque do Retiro (AEMET), normal 1991–2020",[6.5,8.0,11.3,13.6,17.5,22.8,26.2,25.7,21.0,15.4,10.0,7.0],[32,34,35,46,48,20,9,10,24,64,52,42]],["Manaus","Brasil","América do Sul","Equatorial (Af/Am)","Am","Temperaturas altas e quase constantes (amplitude menor que 2 °C) e chuva em todos os meses, com um período menos chuvoso de julho a setembro.","Fica na América do Sul, bem longe do litoral e às margens de um grande rio. Enriqueceu no fim do século XIX com a extração de látex.","INMET, normal 1991–2020",[26.7,26.7,26.7,26.7,27.2,27.2,27.8,28.3,28.3,28.3,27.8,27.2],[305,297,320,330,234,117,66,56,79,114,188,254]],["Manila","Filipinas","Ásia","Tropical de monção (Am)","Am","Tropical de monção: de janeiro a abril chove menos de 30 mm por mês, o verão é muito chuvoso (cerca de 480 mm em agosto) e o calor é constante.","Fica na Ásia, na costa de uma grande baía, em um arquipélago de mais de 7.000 ilhas. Os coloridos jeepneys são o principal transporte coletivo.","Estação Port Area (PAGASA), normal 1991–2020",[26.9,27.5,28.7,30.3,30.3,29.7,28.7,28.5,28.4,28.6,28.3,27.4],[19.4,21.9,21.8,23.4,159.1,253.3,432.3,476.1,396.4,220.6,119.9,98.5]],["Marrakech","Marrocos","África","Semiárido quente (BSh)","BSh","Semiárido quente: verão muito quente e seco (29 °C de média em julho e agosto, com máximas de 37 °C), inverno ameno e pouca chuva (221 mm por ano).","Fica na África, ao pé de uma cordilheira com picos nevados, na entrada do deserto. A grande praça central é cheia de contadores de histórias e barracas de comida.","Aeroporto Menara (NOAA), normal 1991–2020",[12.5,14.2,17.0,19.0,22.3,25.8,29.2,29.3,25.6,22.1,16.9,13.7],[25.0,25.7,35.2,26.3,10.5,3.1,2.2,4.7,15.2,19.1,29.8,24.2]],["Melbourne","Austrália","Oceania","Oceânico (Cfb)","Cfb","Oceânico variável: chuva regular e moderada (597 mm por ano), verão quente (21 °C em janeiro) e inverno fresco (11 °C em julho).","Fica na Oceania, no sul de um país-continente, ao redor de uma baía. É conhecida pelos cafés, pelos bondes e por um torneio de tênis em janeiro. O tempo costuma mudar várias vezes no mesmo dia.","Olympic Park (Bureau of Meteorology), normal 1991–2020",[21.1,21.1,19.4,16.3,13.6,11.3,10.7,11.6,13.3,15.1,17.3,19.1],[43.1,40.5,41.2,51.5,51.1,49.3,47.7,50.8,54.1,55.4,54.2,58.3]],["Miami","Estados Unidos","América do Norte","Tropical de monção (Am)","Am","Tropical de monção: verão quente e muito chuvoso (cerca de 270 mm em junho) e inverno ameno e mais seco (20 °C em janeiro); furacões são comuns de junho a novembro.","Fica na América do Norte, no extremo sul de uma península, banhada pelo Atlântico e perto de pântanos. É um centro de cruzeiros e de cultura caribenha e latina.","Aeroporto Internacional de Miami (NOAA), normal 1991–2020",[20.3,21.5,22.8,24.8,26.7,28.2,28.9,29.0,28.3,26.7,23.8,21.8],[46,55,62,85,161,267,187,243,260,194,90,62]],["Montevidéu","Uruguai","América do Sul","Subtropical úmido (Cfa)","Cfa","Subtropical úmido: chove bem em todos os meses (de 83 a 111 mm), com verão agradável (23 °C) e inverno fresco (11 °C), parecido com o de Buenos Aires.","Fica na América do Sul, na margem norte de um grande estuário, a poucas horas de barco de outra capital. O país sediou, e venceu, a primeira Copa do Mundo de futebol.","INUMET (temperatura) e NOAA (chuva), estação Prado, normal 1991–2020",[23.3,22.8,21.2,18.1,14.8,11.9,11.0,12.6,13.9,16.5,19.2,21.8],[94.6,93.8,105.8,111.1,83.4,89.4,93.2,89.9,92.1,102.2,95.9,91.3]],["Moscou","Rússia","Europa","Continental úmido de verão ameno (Dfb)","Dfb","Inverno com temperaturas negativas e verão ameno, com amplitude térmica de cerca de 26 °C. A chuva é maior no verão.","Fica na Europa, no leste do continente e longe de qualquer mar. O idioma local usa o alfabeto cirílico.","Estação Moscou, normal 1991–2020 (dados NOAA)",[-6.1,-6.1,-0.6,7.2,13.3,17.2,20.0,17.8,12.2,5.6,-0.6,-4.4],[53,43,38,38,58,74,81,81,69,71,51,51]],["Mumbai","Índia","Ásia","Tropical de monção (Am/Aw)","Aw","Monção: de dezembro a abril quase não chove, e de junho a setembro caem chuvas torrenciais (mais de 750 mm só em julho).","Fica na Ásia, na costa oeste de um país muito populoso, diante do Mar da Arábia. Abriga uma das maiores indústrias de cinema do mundo.","Estação Colaba, Departamento Meteorológico da Índia (IMD), normal 1991–2020",[24.9,25.5,27.3,29.2,30.7,29.3,27.7,27.5,27.9,29.1,28.7,26.7],[1,0,1,0,16,506,769,472,356,82,9,3]],["Nairóbi","Quênia","África","Tropical de altitude (Cfb/Cwb)","Cfb","Tropical de altitude: apesar de estar no Equador, a altitude deixa as temperaturas amenas (18 a 22 °C) e há duas épocas de chuva, em março–maio e em outubro–dezembro.","Fica na África, quase sobre a linha do Equador, em um planalto a cerca de 1.700 m. Ao lado da cidade há um parque nacional onde leões vivem a poucos quilômetros dos prédios.","Aeroporto Jomo Kenyatta, normal 1991–2020, tabela da Wikipédia",[20.5,20.8,21.6,20.8,19.8,18.5,17.7,18.2,19.4,20.6,19.9,19.7],[57.8,36.2,74.7,130.2,108.9,28.8,10.9,18.5,16.9,50.0,130.6,85.4]],["Natal","Brasil","América do Sul","Tropical com estação seca (As/Aw)","Aw","Tropical com chuva de outono e inverno: a época chuvosa vai de março a julho (quase 350 mm em junho) e de outubro a dezembro chove pouco; o calor é constante.","Fica na América do Sul, no extremo nordeste de um país, na parte do continente mais próxima da África. Tem dunas altas e um forte em forma de estrela, construído há mais de 400 anos.","INMET, normal 1991–2020, tabela da Wikipédia",[27.4,27.6,27.5,27.2,26.6,25.4,24.8,25.0,25.8,26.5,27.0,27.4],[80.7,99.8,200.8,240.5,221.8,348.8,254.0,118.7,54.0,20.6,22.5,29.0]],["Niamey","Níger","África","Semiárido quente (BSh)","BSh","Semiárido tropical: calor extremo (mais de 34 °C em abril), estação chuvosa curta de junho a setembro (193 mm em agosto) e longa estação seca de outubro a maio.","Fica na África, no Sahel, às margens de um grande rio, numa faixa de transição entre o deserto e a savana, em um país sem litoral.","Aeroporto de Niamey (NOAA e OMM), normal 1991–2020",[24.6,27.8,31.9,34.7,34.5,32.2,29.5,28.1,29.6,31.5,29.0,25.5],[0.0,0.3,0.2,9.8,25.3,78.6,145.6,192.6,85.1,16.7,0.0,0.0]],["Nova Délhi","Índia","Ásia","Subtropical com monção (Cwa/BSh)","BSh","Subtropical com monção e extremos: inverno fresco (14 °C em janeiro), verão muito quente (33 °C em junho) e chuva concentrada em julho e agosto.","Fica na Ásia, na planície de um grande rio sagrado, no norte de um país. Parte da cidade foi planejada por arquitetos britânicos no início do século XX.","Estação Safdarjung (Departamento Meteorológico da Índia), normal 1991–2020",[13.8,17.4,22.7,28.9,32.7,33.3,31.5,30.4,29.5,26.2,20.5,15.6],[19.1,21.3,17.4,16.3,30.7,74.1,209.7,233.1,123.5,15.1,6.0,8.1]],["Nova York","Estados Unidos","América do Norte","Subtropical úmido (Cfa)","Cfa","Inverno frio, com neve, verão quente e úmido e chuva regular o ano todo (de 80 a 120 mm por mês).","Fica na América do Norte, na costa atlântica, na foz de um grande rio. É uma das cidades mais multiculturais do mundo.","Estação Central Park (NOAA), normal 1991–2020",[1.1,2.2,6.1,12.2,17.2,22.2,25.6,24.4,20.6,14.4,8.9,3.9],[91,81,109,104,102,114,117,117,109,112,91,112]],["Nuuk","Groenlândia","América do Norte","Polar de tundra (ET)","ET","Tundra marítima: o verão é curto e fresco (7 °C em julho), o inverno é frio (−9 °C em fevereiro), e o oceano suaviza os extremos do interior da ilha; chove ou neva o ano todo.","Fica na América do Norte, na costa oeste de uma ilha gigante coberta de gelo que é território autônomo de um reino europeu.","Instituto Meteorológico da Dinamarca, normal 1991–2020",[-7.5,-8.6,-7.7,-3.0,1.2,5.0,7.4,7.0,4.0,0.2,-3.3,-5.5],[67.1,51.1,58.9,53.3,57.4,61.7,69.3,90.8,104.6,80.5,79.0,74.5]],["Oslo","Noruega","Europa","Continental úmido de verão ameno (Dfb)","Dfb","Continental úmido ameno: inverno frio (−2 °C em janeiro), verão suave (18 °C em julho) e chuva em todos os meses (mais de 40 mm).","Fica na Europa, no fundo de um fiorde, no norte do continente. Todo ano, na cidade, é entregue um prêmio da paz.","Estação Blindern, normal 1991–2020, tabela da Wikipédia",[-2.3,-1.9,1.3,6.2,11.4,15.3,17.6,16.5,12.1,6.5,2.1,-1.4],[57.9,44.6,41.4,48.3,60.1,79.7,86.7,102.7,82.2,93.4,84.6,53.6]],["Paris","França","Europa","Oceânico (Cfb)","Cfb","Oceânico: chuva fraca e regular (cerca de 50 mm por mês), verão ameno (21 °C em julho) e inverno frio, mas raramente gelado (5 °C em janeiro).","Fica na Europa, em uma curva de um rio que corta a cidade ao meio. É conhecida pela gastronomia, pelos cafés e pelas avenidas largas planejadas no século XIX.","Parc Montsouris, normal 1991–2020, tabela da Wikipédia",[5.4,6.0,9.2,12.2,15.6,18.8,20.9,20.8,17.2,13.2,8.7,5.9],[47.6,41.8,45.2,45.8,69.0,51.3,59.4,58.0,44.7,55.2,54.3,62.0]],["Pequim","China","Ásia","Continental com monção (Dwa/BSk)","BSk","Continental com monção: inverno frio e seco (−3 °C em janeiro, com apenas 2 mm de chuva) e verão quente e chuvoso (cerca de 170 mm em julho).","Fica na Ásia, no norte de uma grande planície, perto de montanhas por onde passa uma muralha milenar. No centro, há uma cidade que foi vetada ao povo por séculos.","Estação de Pequim (Administração Meteorológica da China), normal 1991–2020",[-2.7,0.6,7.5,15.1,21.3,25.3,27.2,26.1,21.2,13.8,5.2,-1.0],[2.2,5.8,8.6,21.7,36.1,72.4,169.7,113.4,53.7,28.7,13.5,2.2]],["Perth","Austrália","Oceania","Mediterrâneo (Csa)","Csa","Mediterrâneo: inverno chuvoso (147 mm em julho) e verão quente e seco (25 °C em fevereiro e apenas 9 mm de chuva em dezembro).","Fica na Oceania, na costa oeste de um país-continente, banhada pelo oceano Índico. É uma das grandes cidades mais isoladas do mundo.","Perth Metro (Bureau of Meteorology), período 1993–2023",[24.8,25.0,23.3,19.9,16.5,14.1,13.3,13.9,15.2,17.6,20.6,23.1],[16.7,13.1,20.0,35.9,86.2,127.1,147.0,122.7,79.3,39.5,24.2,9.4]],["Phoenix","Estados Unidos","América do Norte","Desértico quente (BWh)","BWh","Deserto quente: pouquíssima chuva (182 mm por ano), verão extremo (média de 35 °C em julho) e inverno ameno; as chuvas vêm no inverno e na monção de verão.","Fica na América do Norte, em um deserto no sudoeste de um país, cercada por cactos gigantes. Quase todas as casas têm piscina.","Aeroporto Internacional Sky Harbor (NOAA), normal 1991–2020",[13.8,15.5,19.1,22.9,27.8,33.0,35.3,34.7,31.8,25.2,18.4,13.2],[22,22,21,5.6,3.3,0.51,23,24,14,14,14,19]],["Porto Alegre","Brasil","América do Sul","Subtropical úmido (Cfa)","Cfa","Chuva bem distribuída o ano todo, sem mês seco, com verão quente (cerca de 25 °C em janeiro) e inverno fresco (cerca de 14 °C em julho).","Fica na América do Sul, na região sul de um país, perto de grandes lagoas. A cultura local tem forte influência da imigração europeia.","INMET, normal 1991–2020 (estação de Porto Alegre)",[25.0,24.4,23.3,20.6,17.2,15.0,13.9,15.6,17.2,19.4,21.7,23.9],[122,112,104,114,112,130,163,119,147,152,107,112]],["Porto Velho","Brasil","América do Sul","Tropical de monção (Am)","Am","Equatorial com período menos chuvoso: chove muito de outubro a abril (mais de 300 mm em janeiro) e bem menos em junho e julho; as médias de temperatura variam pouco.","Fica na América do Sul, no extremo oeste de um país, às margens de um grande afluente do Amazonas. Nasceu para servir a uma ferrovia construída durante o ciclo da borracha.","INMET (temperatura 1991–2020; chuva 1961–1990), tabela da Wikipédia",[26.2,25.9,25.9,26.0,25.5,25.2,24.7,25.6,26.0,26.6,26.4,25.9],[320.9,316.0,273.9,251.0,126.6,49.2,24.2,36.4,119.9,192.7,225.2,319.1]],["Punta Arenas","Chile","América do Sul","Oceânico subpolar (Cfc)","Cfc","Oceânico subpolar: verão fresco (cerca de 11 °C), inverno frio (perto de 2 °C) e pouca chuva, bem distribuída ao longo do ano, com ventos fortes.","Fica na América do Sul, no extremo sul do continente, às margens de um estreito que liga dois oceanos. É ponto de partida para expedições à Antártida.","Dirección Meteorológica de Chile, normal 1991–2020",[10.7,10.3,8.9,6.6,4.2,1.9,1.7,2.7,4.6,6.4,8.3,9.7],[38.1,31.5,42.9,45.1,36.9,31.3,30.9,29.5,24.5,24.6,23.1,31.8]],["Quito","Equador","América do Sul","Clima de altitude equatorial (Cfb)","Cfb","Clima de altitude equatorial: a temperatura é de cerca de 14 °C o ano todo; a chuva é maior de fevereiro a maio e o período de junho a agosto é o mais seco.","Fica na América do Sul, em um vale entre vulcões, a cerca de 2.800 m de altitude, praticamente sobre a linha que separa os hemisférios norte e sul. Seu centro histórico foi um dos primeiros do mundo declarados Patrimônio Mundial.","Aeroporto Mariscal Sucre (OMM), normal 1991–2020, tabela da Wikipédia",[13.9,13.9,14.1,14.1,14.2,14.2,14.3,14.5,14.5,14.2,13.8,13.9],[81.3,109.1,142.4,168.2,120.5,41.3,22.0,31.5,69.4,112.1,108.5,93.6]],["Recife","Brasil","América do Sul","Tropical de monção (Am)","Am","Tropical úmido: chove o ano todo, mas muito mais de março a agosto (cerca de 390 mm em junho), e as médias ficam entre 24 °C e 27 °C.","Fica na América do Sul, no litoral do Nordeste de um país, em uma cidade cortada por rios e pontes, às vezes chamada de Veneza local. O carnaval tem o frevo como ritmo.","INMET, normal 1991–2020 (tabela da Wikipédia)",[27.1,27.3,27.2,26.6,25.8,24.8,24.2,24.2,25.2,26.1,26.7,27.1],[106.6,127.0,197.2,268.9,317.1,390.5,314.8,186.7,93.3,52.8,39.0,61.6]],["Reykjavik","Islândia","Europa","Oceânico subpolar (Cfc)","Cfc","Nenhum mês passa de 12 °C, os invernos ficam perto de 0 °C e a chuva é moderada o ano todo, por influência do oceano.","Fica na Europa, em uma ilha do Atlântico Norte, perto do Círculo Polar Ártico. Grande parte da energia vem de fontes geotérmicas.","Icelandic Met Office e NOAA, normal 1991–2020, tabela da Wikipédia",[0.7,0.5,1.2,3.7,6.7,9.8,11.6,11.0,8.5,4.9,2.2,0.8],[87.1,90.6,80.7,59.0,52.6,43.3,49.9,64.5,87.0,79.8,86.5,94.9]],["Riade","Arábia Saudita","Ásia","Desértico quente (BWh)","BWh","Deserto quente: praticamente sem chuva (100 mm por ano), verão extremo (37 °C em agosto) e inverno ameno (cerca de 15 °C em janeiro).","Fica na Ásia, no coração de uma península desértica, em um planalto, na capital de um reino cercado por dois mares.","Estação Riyadh Old (NOAA), normal 1991–2020",[14.6,17.5,21.5,27.2,33.0,36.0,36.8,36.9,33.7,28.5,21.4,16.4],[15.4,6.1,21.1,24.3,5.4,0.0,0.0,0.5,0.0,1.0,11.4,14.7]],["Ribeirão Preto","Brasil","América do Sul","Tropical com estação seca (Aw)","Aw","Tropical com inverno seco: chuva forte no verão (cerca de 270 mm em janeiro) e inverno seco, com apenas 16 mm em julho e noites mais frescas.","Fica na América do Sul, no interior do estado mais rico de um país, em região de terra roxa. Já foi chamada de capital mundial do café e hoje é polo do agronegócio.","Centro Integrado de Informações Agrometeorológicas (CIIAGRO), normal 1991–2020",[24.9,25.0,24.6,23.3,20.6,19.9,19.9,21.6,23.6,24.8,24.5,24.8],[266.8,209.8,158.6,65.1,58.2,26.8,15.8,16.7,60.6,103.9,176.3,237.0]],["Rio de Janeiro","Brasil","América do Sul","Tropical com estação seca (Aw)","Aw","Tropical de verão chuvoso: de dezembro a março chove mais de 130 mm por mês e o inverno é menos chuvoso e mais ameno; o oceano e o relevo deixam o ar úmido.","Fica na América do Sul, entre o mar e montanhas cobertas de floresta, ao redor de uma baía. Um morro de granito com nome de açúcar e um desfile de escolas de samba são marcas da cidade.","Estação Saúde (INMET), temperatura 1981–2010 e chuva 1961–1990, tabela da Wikipédia",[27.8,28.3,27.6,26.5,24.3,23.0,22.6,23.1,23.2,24.7,25.9,26.8],[137.1,130.4,135.8,94.9,69.8,42.7,41.9,44.5,53.6,86.5,97.8,134.2]],["Roma","Itália","Europa","Mediterrâneo (Csa)","Csa","Mediterrâneo: verão quente e seco (apenas 20 mm em julho, com 26 °C em agosto) e inverno ameno e chuvoso (mais de 100 mm em novembro).","Fica na Europa, em uma península em forma de bota, às margens de um rio, sobre sete colinas. Sua história se mistura à de um império que dominou o Mediterrâneo.","Aeroporto Urbe, normal 1991–2020, tabela da Wikipédia",[7.9,8.6,11.2,14.2,18.7,23.1,26.0,26.1,21.9,17.4,12.4,8.7],[65.6,62.8,58.6,68.6,56.9,30.1,19.8,30.2,64.9,88.1,108.2,98.3]],["Salvador","Brasil","América do Sul","Equatorial úmido (Af)","Af","Tropical úmido: não há mês seco (nunca menos de 60 mm), a chuva é maior de março a junho (mais de 300 mm em maio) e o calor é constante.","Fica na América do Sul, em uma grande baía do litoral leste de um país. Foi a primeira capital da colônia e preserva um centro histórico com forte herança africana.","Normal 1991–2020 (tabela da Wikipédia)",[26.9,27.1,27.1,26.4,25.3,24.3,23.7,23.6,24.3,25.4,26.1,26.6],[76.9,98.7,147.3,284.9,302.2,237.6,194.1,129.7,99.3,91.0,108.2,63.4]],["Santiago","Chile","América do Sul","Mediterrâneo (Csb/BSk)","BSk","Mediterrâneo: verão seco (de dezembro a março quase não chove) e inverno fresco e chuvoso (cerca de 80 mm em junho); a cordilheira bloqueia a umidade.","Fica na América do Sul, em um vale entre uma cordilheira com picos nevados e uma serra costeira. Os vinhedos da região são mundialmente conhecidos.","Estação Quinta Normal (Dirección Meteorológica de Chile), normal 1991–2020",[22.0,21.4,19.7,16.1,12.9,10.4,9.8,11.2,13.5,15.8,18.5,20.6],[0.6,1.3,4.1,17.5,42.6,80.4,50.4,44.1,25.3,12.1,4.9,3.0]],["Seul","Coreia do Sul","Ásia","Continental com monção (Dwa)","Dwa","Continental com monção: inverno frio e seco (−2 °C em janeiro), verão quente e úmido (26 °C em agosto) e chuva muito concentrada em julho (mais de 400 mm).","Fica na Ásia, em uma península, cortada por um rio largo e cercada por montanhas. Tem forte cultura pop e uma culinária de fermentados.","Administração Meteorológica da Coreia, normal 1991–2020",[-2.0,0.7,6.1,12.6,18.2,22.7,25.3,26.1,21.7,15.0,7.5,0.2],[16.8,28.2,36.9,72.9,103.6,129.5,414.4,348.2,141.5,52.2,51.1,22.6]],["Singapura","Singapura","Ásia","Equatorial úmido (Af)","Af","Quase na linha do Equador: temperatura entre 27 e 29 °C o ano todo e chuva abundante em todos os meses, com máximo em dezembro.","Fica na Ásia, em uma ilha na ponta de uma grande península. Reúne comunidades de origem chinesa, malaia e indiana.","Estação Changi (NOAA), normal 1991–2020",[27.2,27.8,28.3,28.9,28.9,28.3,28.3,28.3,28.3,28.3,27.8,27.2],[218,107,155,173,157,142,212,174,152,199,243,311]],["Sydney","Austrália","Oceania","Subtropical úmido (Cfa)","Cfa","Chuva em todos os meses (de 64 a 142 mm), verão quente em dezembro e janeiro e inverno ameno (cerca de 13 °C em julho), no hemisfério sul.","Fica na Oceania, na costa leste de um país-continente, ao redor de uma grande baía. É a cidade mais populosa do país.","Estação Observatory Hill (NOAA), normal 1991–2020",[23.3,23.3,22.2,19.4,16.7,13.9,13.3,14.4,16.7,18.9,20.6,22.2],[91,132,117,114,102,142,81,76,64,69,91,74]],["São Luís","Brasil","América do Sul","Tropical com estação seca (Aw)","Aw","Tropical com estação seca marcante: de janeiro a junho chove demais (mais de 450 mm em março) e de agosto a novembro quase nada (menos de 10 mm de setembro a novembro).","Fica na América do Sul, em uma ilha do litoral norte de um país, onde o reggae é tão popular que a cidade é chamada de Jamaica local. O centro histórico tem casarões cobertos de azulejos portugueses.","INMET, normal 1991–2020, tabela da Wikipédia (temperatura média estimada como (máx+mín)/2)",[27.6,27.3,27.1,27.2,27.6,27.5,27.4,28.4,28.3,28.6,29.2,28.6],[235.4,308.0,452.8,431.4,312.0,174.3,110.8,22.5,2.9,2.8,9.7,54.5]],["São Paulo","Brasil","América do Sul","Subtropical úmido de altitude (Cfa)","Cfa","Chuva concentrada no verão e mais fraca no inverno, mas sem mês seco. As temperaturas são moderadas pela altitude (cerca de 800 m).","Fica na América do Sul, a poucas dezenas de quilômetros do litoral, mas separada dele por uma serra. É um dos maiores centros financeiros e culturais do continente.","Estação Mirante de Santana (INMET), normal 1991–2020, tabelas da Prefeitura de São Paulo",[22.5,22.7,21.8,20.3,17.6,16.7,16.2,16.9,18.1,19.6,20.3,21.9],[273,245,192,83,63,58,52,35,84,124,153,198]],["Teerã","Irã","Ásia","Semiárido quente (BSh)","BSh","Semiárido: verão muito quente e seco (31 °C em julho, com quase nenhuma chuva), inverno frio (5 °C em janeiro) e 239 mm de chuva por ano, sobretudo entre novembro e abril.","Fica na Ásia, ao pé de uma cadeia de montanhas com picos que passam de 5.000 m, em um planalto árido do sudoeste do continente. A língua local é o persa.","Aeroporto Mehrabad (NOAA), normal 1991–2020",[4.7,7.0,11.8,17.6,23.2,28.8,31.4,30.5,26.3,19.6,11.6,6.5],[31.7,32.9,42.5,34.8,14.0,2.3,2.3,1.4,0.9,13.6,30.9,31.8]],["Teresina","Brasil","América do Sul","Tropical com estação seca (Aw)","Aw","Tropical com longa estação seca: de janeiro a maio chove muito (mais de 290 mm em março) e de junho a outubro quase nada; setembro e outubro são os meses mais quentes, perto de 30 °C.","Fica na América do Sul, entre dois rios, no interior do Nordeste de um país. É a única capital da região que não fica no litoral e tem fama de ser uma das mais quentes do país.","NOAA e INMET, normal 1991–2020, tabela da Wikipédia (temperatura média estimada como (máx+mín)/2)",[27.6,27.5,27.4,27.4,27.5,27.2,27.2,28.2,29.4,30.4,30.0,29.2],[205.9,233.6,292.0,264.9,114.7,20.7,12.6,7.6,11.3,22.2,44.8,99.0]],["Toronto","Canadá","América do Norte","Continental úmido de verão quente (Dfa)","Dfa","Continental úmido: inverno frio (−3,5 °C em janeiro), verão quente (22,5 °C em julho) e chuva bem distribuída, com mais de 50 mm em todos os meses.","Fica na América do Norte, na margem noroeste de um dos Grandes Lagos, em um país bilíngue (inglês e francês). Tem uma cidade subterrânea de corredores para fugir do frio.","Environment and Climate Change Canada, estação The Annex, normal 1991–2020",[-3.5,-2.7,1.7,7.8,14.5,19.8,22.5,21.9,17.9,11.2,5.2,-0.1],[64.6,53.9,52.8,78.0,76.4,81.6,76.5,71.9,69.4,69.1,70.8,57.8]],["Tóquio","Japão","Ásia","Subtropical úmido com monção (Cfa)","Cfa","Verão quente e úmido, inverno frio e seco e pico de chuva em setembro e outubro, por influência da monção e dos tufões.","Fica na Ásia, em um país formado por milhares de ilhas, na costa de um grande oceano. É uma das áreas urbanas mais populosas do planeta.","Agência Meteorológica do Japão (JMA), normal 1991–2020",[5.4,6.1,9.4,14.3,18.8,21.9,25.7,26.9,23.3,18.0,12.5,7.7],[60,57,116,134,140,168,156,155,225,235,96,58]],["Ulan Bator","Mongólia","Ásia","Semiárido frio (BSk)","BSk","Semiárido frio: inverno extremo (−21 °C em janeiro), verão curto e ameno (19 °C em julho) e pouca chuva (273 mm por ano), quase toda no verão.","Fica na Ásia, em um planalto a mais de 1.300 m, em um país com a menor densidade demográfica do mundo e tradição nômade. É apontada como a capital mais fria do planeta.","Normal 1991–2020, tabela da Wikipédia",[-21.3,-16.2,-6.7,3.0,10.2,16.6,19.0,16.6,10.0,0.9,-10.6,-19.0],[2.1,2.8,4.6,8.4,21.7,47.2,74.5,65.4,27.9,8.6,6.3,3.5]],["Ushuaia","Argentina","América do Sul","Subpolar oceânico (ET/Cfc)","ET","Subpolar: o mês mais quente tem apenas cerca de 9,5 °C e o inverno fica perto de 2 °C; chove pouco e de forma regular (de 28 a 47 mm por mês).","Fica na América do Sul, em uma ilha do extremo sul do continente, entre montanhas e um canal. É chamada de cidade mais ao sul do mundo e de fim do mundo.","Aeroporto de Ushuaia (Serviço Meteorológico Nacional), normal 1991–2020",[9.5,9.4,8.4,6.2,4.3,2.5,2.3,2.9,4.3,6.2,7.4,8.6],[45.1,34.6,38.3,47.0,35.3,42.5,35.8,38.4,30.5,28.4,38.9,43.0]],["Vancouver","Canadá","América do Norte","Mediterrâneo de verão ameno (Csb)","Csb","Oceânico (mediterrâneo ameno): inverno chuvoso e ameno (cerca de 175 mm em novembro) e verão fresco e bem mais seco (34 mm em julho).","Fica na América do Norte, no litoral do Pacífico, entre montanhas nevadas e o mar. Suas paisagens verdes aparecem em muitos filmes e séries.","Aeroporto Internacional de Vancouver (Environment Canada), normal 1991–2020",[4.1,4.7,6.7,9.4,13.0,15.8,18.2,18.2,15.2,10.3,6.4,3.9],[174.0,90.8,106.4,85.5,59.1,51.1,34.1,36.1,51.9,123.9,174.6,172.2]],["Viena","Áustria","Europa","Temperado de transição (Cfa/Dfb)","Cfa","Temperado de transição: verão quente (23 °C em julho), inverno frio (2 °C em janeiro) e chuva moderada, mais concentrada no verão.","Fica na Europa, às margens de um grande rio, no centro do continente. É conhecida por cafés tradicionais, pela valsa e por uma ópera famosa.","Estação Innere Stadt (GeoSphere Áustria), normal 1991–2020",[2.1,3.8,7.7,13.0,17.3,21.0,23.0,22.8,17.7,12.3,7.2,2.8],[37.6,33.5,46.3,39.6,78.3,82.0,80.3,73.8,67.3,47.7,42.9,39.9]],["Vladivostok","Rússia","Ásia","Continental com monção (Dwb)","Dwb","Continental com monção: inverno muito frio e seco (−12 °C em janeiro), verão fresco e úmido (20 °C em agosto) e chuva bem maior de julho a setembro (176 mm em agosto).","Fica na Ásia, no extremo leste de um país gigante, às margens de um mar, no ponto final de uma ferrovia transcontinental. O nome significa algo como dominar o Oriente.","Normal 1991–2020 (Pogoda i Klimat e NOAA), tabela da Wikipédia",[-11.9,-8.1,-1.5,5.3,10.0,13.8,18.1,20.0,16.3,9.2,-0.7,-9.2],[12,16,27,43,97,105,159,176,103,67,36,19]],["Windhoek","Namíbia","África","Semiárido quente (BSh)","BSh","Semiárido quente: pouca chuva (378 mm por ano), quase toda de dezembro a março; o inverno é seco, com noites frias (mínima de 6 °C em julho), e o verão é quente.","Fica na África, em um planalto a cerca de 1.700 m, no sul do continente, em um país com uma das menores densidades demográficas do mundo e um dos desertos mais antigos do planeta.","Aeroporto Eros (Deutscher Wetterdienst), normal 1991–2020",[23.8,22.8,21.6,19.4,16.5,13.9,13.7,16.3,20.6,22.6,23.3,24.1],[91.3,96.4,79.3,19.4,3.1,0.5,0.0,0.3,2.1,11.4,26.8,47.2]],["Winnipeg","Canadá","América do Norte","Continental úmido de verão ameno (Dfb)","Dfb","Continental extremo: inverno muito frio (−16 °C em janeiro), verão ameno (cerca de 20 °C em julho) e pouca chuva (519 mm por ano), concentrada no verão.","Fica na América do Norte, no centro geográfico de um país imenso, onde dois rios se encontram no meio de uma planície. É uma das grandes cidades mais frias do mundo.","Aeroporto Internacional Richardson (Environment and Climate Change Canada), normal 1991–2020",[-16.3,-14.1,-6.1,3.8,11.1,17.1,19.5,18.7,13.3,5.1,-4.4,-12.7],[18.0,13.3,25.5,32.5,69.5,74.3,76.6,74.3,53.2,38.1,24.7,19.4]],["Xangai","China","Ásia","Subtropical úmido (Cfa)","Cfa","Subtropical úmido: verão quente e úmido (29 °C em julho), inverno frio (5 °C em janeiro) e chuva o ano todo (de 50 a 226 mm por mês).","Fica na Ásia, na foz de um grande rio, no litoral do Pacífico. Uma orla com edifícios de estilo europeu do século XIX contrasta com arranha-céus do outro lado da água.","Estação Xujiahui (Administração Meteorológica da China), normal 1991–2020",[5.4,7.0,10.7,16.1,21.3,24.7,29.1,28.8,25.1,19.9,14.3,7.9],[72.2,65.0,97.3,84.2,91.0,224.9,163.2,225.9,131.5,69.6,61.4,50.4]],["Yakutsk","Rússia","Ásia","Subártico extremo (Dfc/Dfd)","Dfc","Subártico extremo: inverno de cerca de −37 °C e verão quente (20 °C em julho), com quase 57 °C de diferença entre o mês mais frio e o mais quente; chove pouco (235 mm por ano).","Fica na Ásia, na Sibéria, às margens de um grande rio congelado boa parte do ano. As casas são construídas sobre estacas por causa do solo que nunca descongela.","Estação Yakutsk (OMM 24959), normal 1991–2020",[-36.9,-32.9,-19.1,-3.7,8.0,17.0,19.9,15.6,6.4,-6.9,-25.9,-37.0],[10,9,6,8,20,30,40,37,30,19,17,9]]];
+const BASIC=["Manaus", "Singapura", "Brasília", "Cairo", "Riade", "Londres", "Paris", "Moscou", "Yakutsk", "Roma", "Lisboa", "Porto Alegre", "Buenos Aires", "Mumbai", "Reykjavik", "Nova York", "São Paulo"];
+const PH={"Antananarivo":["antananarivo",720,500,"Hery Zo Rakotondramanana","CC BY-SA 2.0","https://commons.wikimedia.org/wiki/File:Reconstructed_Rova_Antananarivo_Madagascar.jpg"],"Assunção":["assuncao",720,568,"MosheA","CC0","https://commons.wikimedia.org/wiki/File:Palacio_de_los_L%C3%B3pez_Asunci%C3%B3n_1.jpg"],"Atenas":["atenas",720,506,"Steve Swayne","CC BY 2.0","https://commons.wikimedia.org/wiki/File:The_Parthenon_in_Athens.jpg"],"Auckland":["auckland",355,720,"Jorge Royan","CC BY-SA 3.0","https://commons.wikimedia.org/wiki/File:Sky_Tower,_Auckland_-_0206_(cropped).jpg"],"Bangcoc":["bangcoc",720,480,"Mastertongapollo","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:%E0%B9%80%E0%B8%88%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B9%8C%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B8%84%E0%B9%8C%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B8%B8%E0%B8%932.jpg"],"Belo Horizonte":["belo-horizonte",720,540,"Jani Pereira","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Igreja_de_S%C3%A3o_Francisco_de_Assis_Jani_Pereira_(6).jpg"],"Belém":["belem",720,480,"Mauricio Mercer","CC BY-SA 2.0","https://commons.wikimedia.org/wiki/File:Ver-oPeso-Belem.jpg"],"Berlim":["berlim",720,480,"Thomas Wolf, www.foto-tw.de","CC BY-SA 3.0","https://commons.wikimedia.org/wiki/File:Brandenburger_Tor_abends.jpg"],"Bogotá":["bogota",720,540,"Felipe Restrepo Acosta","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:2017_Bogot%C3%A1_Bas%C3%ADlica_del_Se%C3%B1or_Ca%C3%ADdo_de_Monserrate.jpg"],"Brasília":["brasilia",720,672,"Tissiana de A. de Souza","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Catedral_Metropolitana_de_Brasilia.jpg"],"Buenos Aires":["buenos-aires",720,417,"Luis Santos","CC BY-SA 2.0","https://commons.wikimedia.org/wiki/File:Panorama_Obelisco_de_Buenos_Aires_2019.jpg"],"Cairo":["cairo",720,300,"KennyOMG","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Pyramids_of_the_Giza_Necropolis.jpg"],"Calcutá":["calcuta",720,322,"Subhrajyoti07","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Victoria_Memorial_situated_in_Kolkata.jpg"],"Caracas":["caracas",720,540,"Olga Berrios","CC BY 2.0","https://commons.wikimedia.org/wiki/File:Caracas_desde_el_%C3%A1vila.jpg"],"Chicago":["chicago",540,720,"w_lemay","CC BY-SA 2.0","https://commons.wikimedia.org/wiki/File:Sears_Tower,_Wacker_Drive_and_Jackson_Boulevard,_Chicago,_IL_-_54189600901.jpg"],"Cidade do Cabo":["cidade-do-cabo",720,471,"Danie van der Merwe","CC BY 2.0","https://commons.wikimedia.org/wiki/File:Table_Mountain_DanieVDM.jpg"],"Cidade do México":["cidade-do-mexico",720,490,"Carlos Valenzuela","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Angel_de_la_independencia170409.jpg"],"Cidade do Panamá":["cidade-do-panama",720,469,"ArnoldReinhold","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Biomuseo_rear_stereo_pair_R.agr_(cropped).jpg"],"Curitiba":["curitiba",720,540,"Alan Franco","CC BY 2.0","https://commons.wikimedia.org/wiki/File:Curitiba_Botanic_Garden.jpg"],"Cusco":["cusco",720,480,"tomscoffin","CC BY 2.0","https://commons.wikimedia.org/wiki/File:Vista_Calle_Suecia.jpg"],"Daca":["daca",720,400,"Farha Fawzia Atashi","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:%E0%A6%B2%E0%A6%BE%E0%A6%B2_%E0%A6%95%E0%A7%87%E0%A6%B2%E0%A7%8D%E0%A6%B2%E0%A6%BE%E0%A6%B0_%E0%A6%AE%E0%A6%BE%E0%A6%AF%E0%A6%BC%E0%A6%BE.jpg"],"Dakar":["dakar",720,479,"mostroneddo","CC BY 2.0","https://commons.wikimedia.org/wiki/File:Dakar-Ind%C3%A9pendance.jpg"],"Florianópolis":["florianopolis",720,540,"Beto Quissak","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Ponte_Hercilio_Luz_-_Florianopolis_-_Santa_Catarina.jpg"],"Fortaleza":["fortaleza",720,480,"Governo Federal Brasileiro","CC BY-SA 3.0","https://commons.wikimedia.org/wiki/File:Centro_Drag%C3%A3o_do_Mar_de_Arte_e_Cultura_(4).jpg"],"Hanói":["hanoi",720,336,"Chuoibk","CC BY-SA 3.0","https://commons.wikimedia.org/wiki/File:Hanoi_Temple_of_Literature_(cropped).jpg"],"Havana":["havana",720,480,"Nigel Pacquette","CC BY-SA 3.0","https://commons.wikimedia.org/wiki/File:El_Capitolio_Havana_Cuba.jpg"],"Hong Kong":["hong-kong",720,313,"Diliff","CC BY 3.0","https://commons.wikimedia.org/wiki/File:Hong_Kong_Skyline_Restitch_-_Dec_2007.jpg"],"Honolulu":["honolulu",720,540,"mar1865","CC BY-SA 3.0","https://commons.wikimedia.org/wiki/File:Diamond_Head_Hawaii_From_Round_Top_Rd.JPG"],"Istambul":["istambul",720,435,"Adli Wahid","CC BY-SA 3.0","https://commons.wikimedia.org/wiki/File:Hagia_Sophia_(228968325).jpeg"],"Kuala Lumpur":["kuala-lumpur",422,720,"DvTor8303","CC0","https://commons.wikimedia.org/wiki/File:Kuala_Lumpur_Tower_20250822_(1).jpg"],"Lhasa":["lhasa",720,405,"Lhasa Government","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Potala_Palace_HQ.jpg"],"Lima":["lima",720,480,"Murray Foubister","CC BY-SA 2.0","https://commons.wikimedia.org/wiki/File:Lima,_Peru%E2%80%A6the_Plaza_de_Armas_de_Lima_by_day_(8444360764).jpg"],"Lisboa":["lisboa",720,687,"Alvesgaspar","CC BY-SA 3.0","https://commons.wikimedia.org/wiki/File:Torre_Bel%C3%A9m_April_2009-4a.jpg"],"Londres":["londres",405,720,"Christian David","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Elizabeth_Tower_and_the_north_front_of_the_Palace_of_Westminster,_London.jpg"],"Longyearbyen":["longyearbyen",720,490,"Bjørn Christian Tørrissen","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Longyearbyen-spisshus-2022.jpg"],"Los Angeles":["los-angeles",720,480,"Gnaphron","CC BY-SA 2.0","https://commons.wikimedia.org/wiki/File:Hollywood_sign_(8485145044).jpg"],"Madri":["madri",720,544,"Tim Adams","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Palacio_Real_de_Madrid_Julio_2016_(cropped).jpg"],"Manaus":["manaus",720,680,"Susan Valentim","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Noite_no_Teatro_Amazonas_(cropped).jpg"],"Manila":["manila",720,402,"Diego Delso","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Baluartillo_de_San_Jos%C3%A9,_Manila,_Filipinas,_2023-08-26,_DD_41.jpg"],"Marrakech":["marrakech",540,720,"Rol1000","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Marokko0112_(retouched).jpg"],"Melbourne":["melbourne",720,450,"Philip Mallis","CC BY-SA 3.0","https://commons.wikimedia.org/wiki/File:Flinders_Station_and_trams.jpg"],"Miami":["miami",720,415,"chensiyuan","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Ocean_drive_day_2009j.JPG"],"Montevidéu":["montevideu",720,540,"Felipe Restrepo Acosta","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:2016_Fachada_del_Palacio_Legislativo_de_Montevideo.jpg"],"Moscou":["moscou",649,720,"Tsy1980","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Saint_Basil%27s_Cathedral_in_Moscow.jpg"],"Mumbai":["mumbai",720,472,"Sailko","CC BY 3.0","https://commons.wikimedia.org/wiki/File:Chhatrapati_shivaji_terminus,_esterno_01.jpg"],"Nairóbi":["nairobi",720,481,"Daniel Case","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Nairobi_skyline_from_Gem_Hotel.jpg"],"Natal":["natal",720,405,"MTur Destinos","Public domain","https://commons.wikimedia.org/wiki/File:Ney_Douglas_Forte_dos_Reis_Magos_Natal_RN_(40970470971).jpg"],"Nova Délhi":["nova-delhi",660,720,"AKS.9955","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:India_Gate_front.jpg"],"Nova York":["nova-york",470,720,"AskALotl","CC0","https://commons.wikimedia.org/wiki/File:Front_view_of_Statue_of_Liberty_(cropped).jpg"],"Nuuk":["nuuk",720,472,"Quintin Soloviev","CC BY 4.0","https://commons.wikimedia.org/wiki/File:Nuuk,_Greenland_skyline_aerial_view.jpg"],"Oslo":["oslo",720,286,"Pierre Blaché","CC0","https://commons.wikimedia.org/wiki/File:Oslo_Opera_House_-_2025.jpg"],"Paris":["paris",432,720,"Benh LIEU SONG","Public domain","https://commons.wikimedia.org/wiki/File:Tour_Eiffel_Wikimedia_Commons_(cropped).jpg"],"Pequim":["pequim",720,326,"CEphoto, Uwe Aranas","CC BY-SA 3.0","https://commons.wikimedia.org/wiki/File:Beijing_China_Beijing-National-Stadium-01.jpg"],"Phoenix":["phoenix",720,540,"Dru Bloomfield","CC BY 2.0","https://commons.wikimedia.org/wiki/File:Camelback_Mountain_2.jpg"],"Recife":["recife",720,369,"Portal da Copa/ME","CC BY 3.0 br","https://commons.wikimedia.org/wiki/File:Antonio_Vaz_island_-_Recife,_Pernambuco,_Brazil_(cropped).jpg"],"Reykjavik":["reykjavik",720,632,"Steinninn","CC BY 4.0","https://commons.wikimedia.org/wiki/File:Hallgrimskirkja_mai_2026.jpg"],"Riade":["riade",533,720,"Hamza A. Durrani","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Kingdom_Centre_Riyadh_2024.jpeg"],"Ribeirão Preto":["ribeirao-preto",720,480,"Mateus Záccaro (MateusZF)","CC BY-SA 2.0","https://commons.wikimedia.org/wiki/File:MateusZF_29-05-2011_(5781508380).jpg"],"Rio de Janeiro":["rio-de-janeiro",480,720,"Arne Müseler","CC BY-SA 3.0 de","https://commons.wikimedia.org/wiki/File:Christ_the_Redeemer_-_Cristo_Redentor.jpg"],"Roma":["roma",720,505,"FeaturedPics","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Colosseo_2020.jpg"],"Salvador":["salvador",720,404,"Paul R. Burley","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Centro_Hist%C3%B3rico_Salvador_Vista_A%C3%A9rea_2021-0933.jpg"],"Santiago":["santiago",720,539,"Carlos yo","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:San_Crist%C3%B3bal_altura.jpg"],"Singapura":["singapura",720,480,"Supanut Arunoprayote","CC BY 4.0","https://commons.wikimedia.org/wiki/File:Marina_Bay_Sands_(I).jpg"],"Sydney":["sydney",720,442,"Bernard Spragg. NZ","CC0","https://commons.wikimedia.org/wiki/File:Sydney_Australia._(21339175489).jpg"],"São Luís":["sao-luis",720,480,"Prburley","CC BY 4.0","https://commons.wikimedia.org/wiki/File:Rua_Portugal_S%C3%A3o_Lu%C3%ADs_Maranh%C3%A3o_2025-6047.jpg"],"São Paulo":["sao-paulo",720,405,"ProtoplasmaKid","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Vista_a%C3%A9rea_de_la_Avenida_Paulista_de_S%C3%A3o_Paulo_02.jpg"],"Teerã":["teera",720,405,"Blondinrikard Fröberg","CC BY 2.0","https://commons.wikimedia.org/wiki/File:Azadi_Tower_(29358497718).jpg"],"Toronto":["toronto",720,576,"Arild Vågen","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Toronto_city_hall_August_2017_01.jpg"],"Tóquio":["toquio",540,720,"Akonnchiroll","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Tokyo_Tower_2023.jpg"],"Ulan Bator":["ulan-bator",720,540,"Chongkian","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Gandantegchinlen_Monastery_(2024).jpg"],"Ushuaia":["ushuaia",720,390,"Deensel","CC BY 2.0","https://commons.wikimedia.org/wiki/File:Ushuaia_aerial_panorama.jpg"],"Vancouver":["vancouver",720,540,"Nicolas Untz","CC BY-SA 2.0","https://commons.wikimedia.org/wiki/File:Canada_Place_Landing.jpg"],"Viena":["viena",720,492,"C.Stadler/Bwag","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Wien_-_Schloss_Sch%C3%B6nbrunn.JPG"],"Vladivostok":["vladivostok",720,240,"Vyacheslav Bukharov","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Russky_Bridge_(October_2024)-0_2.jpg"],"Xangai":["xangai",344,720,"Supanut Arunoprayote","CC BY 4.0","https://commons.wikimedia.org/wiki/File:Oriental_Pearl_Tower_20251126.jpg"]};
+const C=D.map(r=>({n:r[0],p:r[1],ct:r[2],z:r[3],k:r[4],d:r[5],hint:r[6],src:r[7],t:r[8],P:r[9]}));
+C.forEach(c=>{c.avg=c.t.reduce((a,b)=>a+b,0)/12;c.amp=Math.max(...c.t)-Math.min(...c.t);c.tot=c.P.reduce((a,b)=>a+b,0)});
+const CONTS=["América do Sul","América do Norte","América Central e Caribe","Europa","África","Ásia","Oceania"];
+const LV={
+  facil:{n:"Fácil",q:7,tl:40,th:1,d:"Climas bem típicos, com alternativas variadas",f:c=>BASIC.includes(c.n)},
+  medio:{n:"Médio",q:10,tl:30,th:2,d:"Todas as cidades, com alternativas de climas diferentes",f:()=>true},
+  dificil:{n:"Difícil",q:10,tl:25,th:3,d:"Todas as cidades, com alternativas muito parecidas",f:()=>true}
+};
+const OKS=["Mandou bem!","Isso mesmo!","Craque dos climas!","Acertou em cheio!"];
+const M3=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"],M1=["J","F","M","A","M","J","J","A","S","O","N","D"];
+const $=s=>document.querySelector(s);
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const f1=v=>v.toLocaleString("pt-BR",{maximumFractionDigits:1});
+const f0=v=>Math.round(v).toLocaleString("pt-BR");
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+
+/* ---------- armazenamento local (opcional) ---------- */
+const SK="climograma-quiz-v2";
+const isO=v=>v&&typeof v==="object"&&!Array.isArray(v);
+function ldS(){try{const v=JSON.parse(localStorage.getItem(SK));return isO(v)?v:{}}catch(e){return {}}}
+function svS(){try{localStorage.setItem(SK,JSON.stringify(ST))}catch(e){}}
+const ST=ldS();
+// dados salvos podem vir corrompidos ou de versões antigas: valida o formato antes de usar
+if(!isO(ST.rec))ST.rec={};
+if(!isO(ST.board))ST.board={};
+for(const k in ST.rec)if(!(ST.rec[k]>=0))delete ST.rec[k];
+for(const k in ST.board)ST.board[k]=Array.isArray(ST.board[k])?ST.board[k].filter(e=>isO(e)&&typeof e.n==="string"&&e.s>=0&&e.ok>=0&&e.q>0&&e.d>=0):[];
+ST.diary=Array.isArray(ST.diary)?ST.diary.filter(x=>typeof x==="string"):[];
+if(typeof ST.nick!=="string")ST.nick="";
+document.documentElement.lang="pt-BR";
+if(!ST.migrated){try{const o=JSON.parse(localStorage.getItem("climograma-quiz-recordes"))||{};for(const k in o)if(!(ST.rec[k+"_0"]>=o[k]))ST.rec[k+"_0"]=o[k]}catch(e){}ST.migrated=1}
+let lvl=LV[ST.lvl]?ST.lvl:"medio",timerOn=!!ST.timer,G=null,RK={lvl:"medio",timer:false,src:"local"};
+const cat=(l=lvl,t=timerOn)=>l+"_"+(t?1:0);
+const maxPts=(l,t)=>LV[l].q*(t?15:10);
+
+/* ---------- ranking compartilhado (só se o visualizador tiver acesso) ---------- */
+let SH=null;
+(async()=>{try{
+  if(!window.claude||!window.claude.use)return;
+  const [db,user]=await Promise.all([claude.use("db"),claude.use("user")]);
+  if(!db||!user)return;
+  const uid=await user.id();if(!uid)return;
+  let cw=null;try{cw=user.can?await user.can("data.write"):null}catch(e){}
+  SH={db,uid,cw};
+  if(document.body.dataset.v==="home"||document.body.dataset.v==="rank")view(document.body.dataset.v);
+}catch(e){}})();
+
+/* ---------- escolha das alternativas ---------- */
+function dist(a,b){let s=0;for(let i=0;i<12;i++)s+=((a.t[i]-b.t[i])/10)**2+((a.P[i]-b.P[i])/100)**2;return s}
+// Nunca inclui respostas de rodadas anteriores (evita eliminação por exclusão).
+function choices(c,used,lv){
+  const cand=C.filter(x=>x!==c&&!used.includes(x)).map(x=>({x,d:dist(c,x)})).sort((a,b)=>a.d-b.d),m=cand.length;
+  let pick=[];
+  if(lv==="dificil"){
+    pick=sh(cand.slice(0,Math.min(6,m)).map(o=>o.x)).slice(0,3);
+  }else{
+    const start=lv==="facil"?Math.floor(m*.4):Math.max(3,Math.floor(m*.1));
+    const pool=sh(cand.slice(Math.min(start,m-3)).map(o=>o.x));
+    // alternativas de tipos de clima diferentes e sem gráficos parecidos entre si
+    for(const tau of [12,5,0]){
+      for(const x of pool){
+        if(pick.length>=3)break;
+        if(!pick.includes(x)&&x.k!==c.k&&pick.every(y=>y.k!==x.k&&dist(x,y)>=tau))pick.push(x);
+      }
+    }
+    for(const x of pool){if(pick.length>=3)break;if(!pick.includes(x))pick.push(x)}
+  }
+  return sh([c,...pick]);
+}
+
+/* ---------- gráfico ---------- */
+function axes(c){
+  const mt=Math.min(...c.t),Mt=Math.max(...c.t),mp=Math.max(...c.P);
+  const lo=Math.floor(Math.min(0,mt)/10)*10;
+  let hi=Math.ceil((Mt+1)/10)*10;hi=Math.max(hi,lo+30);
+  const n=(hi-lo)/10,step=[25,50,100,150,200].find(s=>s*n>=mp*1.02)||250;
+  return {lo,hi,n,step};
+}
+function chartSVG(c,W,still){
+  const H=Math.round(Math.min(380,Math.max(230,W*.62))),L=38,R=42,T=24,B=24,w=W-L-R,h=H-T-B,bw=w/12;
+  const A=axes(c),ty=v=>T+h*(1-(v-A.lo)/(A.hi-A.lo)),py=v=>T+h*(1-v/(A.step*A.n)),lab=bw>=27?M3:M1;
+  let s=`<svg viewBox="0 0 ${W} ${H}" class="${still?"still":""}" role="img" aria-label="Climograma: barras de precipitação e linha de temperatura média, mês a mês"><defs><linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--rain2)"/><stop offset="1" style="stop-color:var(--rain)"/></linearGradient></defs>`;
+  for(let i=0;i<=A.n;i++){
+    const y=T+h*(1-i/A.n);
+    s+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y}" y2="${y}"/><text x="${L-6}" y="${y+4}" text-anchor="end">${A.lo+i*10}</text><text x="${W-R+6}" y="${y+4}">${i*A.step}</text>`;
+  }
+  if(A.lo<0)s+=`<line class="gz" x1="${L}" x2="${W-R}" y1="${ty(0)}" y2="${ty(0)}"/>`;
+  s+=`<text class="tc" x="${L-6}" y="12" text-anchor="end">°C</text><text class="pc" x="${W-R+6}" y="12">mm</text>`;
+  s+=`<line class="ax" x1="${L}" x2="${L}" y1="${T}" y2="${T+h}"/><line class="ax" x1="${W-R}" x2="${W-R}" y1="${T}" y2="${T+h}"/>`;
+  c.P.forEach((v,i)=>{
+    const y=py(v),x=L+i*bw;
+    s+=`<rect class="hl" data-i="${i}" x="${x}" y="${T}" width="${bw}" height="${h}"/>`;
+    if(v>0)s+=`<rect class="bar" style="animation-delay:${i*45}ms" x="${x+bw*.15}" y="${y}" width="${bw*.7}" height="${Math.max(1,T+h-y)}" fill="url(#gb)" rx="3"/>`;
+    s+=`<text x="${x+bw/2}" y="${H-7}" text-anchor="middle">${lab[i]}</text>`;
+  });
+  const pts=c.t.map((v,i)=>[L+i*bw+bw/2,ty(v)]);
+  s+=`<polyline class="ln" pathLength="1" points="${pts.map(p=>p.map(v=>Math.round(v*10)/10).join(",")).join(" ")}" fill="none" stroke="var(--temp)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  pts.forEach((p,i)=>{s+=`<circle class="dt" style="animation-delay:${550+i*45}ms" cx="${p[0]}" cy="${p[1]}" r="4.4" fill="var(--temp)" stroke="var(--card)" stroke-width="2"/>`});
+  return {svg:s+`</svg>`,L,bw,W};
+}
+let RO=null,QT=0;
+function drawChart(first){
+  const el=$("#plot");if(!el||!G)return;
+  const c=G.r[G.i],W=Math.max(260,Math.floor(el.clientWidth-12));
+  if(!first&&G.cw&&Math.abs(G.cw-W)<3)return;
+  G.cw=W;
+  const r=chartSVG(c,W,!first);
+  el.innerHTML=r.svg;G.geo=r;
+  const sv=el.querySelector("svg");
+  const at=e=>{const b=sv.getBoundingClientRect(),x=(e.clientX-b.left)*(W/b.width)-r.L,i=Math.floor(x/r.bw);if(i>=0&&i<12)mark(i)};
+  sv.addEventListener("pointermove",at);sv.addEventListener("pointerdown",at);
+  if(G.sel>=0)mark(G.sel);
+}
+function mark(i){
+  if(!G)return;G.sel=i;const c=G.r[G.i];
+  document.querySelectorAll("#plot .hl").forEach(r=>r.classList.toggle("on",+r.dataset.i===i));
+  $("#rd").innerHTML=`<b>${M3[i]}</b><span class="rt">🌡️ ${f1(c.t[i])} °C</span><span class="rp">🌧️ ${f0(c.P[i])} mm</span>`;
+}
+function plotKey(e){
+  if(!G)return;
+  const k=e.key;let i=G.sel;
+  if(k==="ArrowRight")i=i<0?0:Math.min(11,i+1);
+  else if(k==="ArrowLeft")i=i<0?11:Math.max(0,i-1);
+  else if(k==="Home")i=0;else if(k==="End")i=11;else return;
+  e.preventDefault();$("#rd").setAttribute("aria-live","polite");mark(i);
+}
+function watchSize(){
+  if(RO){RO.disconnect();RO=null}
+  const el=$("#plot");if(!el||!window.ResizeObserver)return;
+  let raf=0;RO=new ResizeObserver(()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>drawChart(false))});RO.observe(el);
+}
+
+/* ---------- utilidades visuais ---------- */
+const thIcon=(n,st="")=>`<svg class="th th${n}" style="${st}" viewBox="0 0 24 44" aria-hidden="true"><rect x="8" y="2" width="8" height="31" rx="4" class="tb"/><circle cx="12" cy="35" r="7" class="tb"/><rect x="10" y="${33-n*9}" width="4" height="${n*9}" rx="2" class="hg"/><circle cx="12" cy="35" r="4.6" class="hg"/></svg>`;
+const embSVG=()=>$(".emb").outerHTML;
+function boom(){
+  const c=document.createElement("div");c.className="boom";
+  for(let i=0;i<28;i++){const p=document.createElement("i");p.style.cssText=`--x:${(Math.random()-.5)*360}px;--y:${-120-Math.random()*240}px;--r:${Math.random()*720}deg;background:${["#ffc233","#ff6b6b","#34c3a0","#5aa3e0","#b388ff"][i%5]};animation-delay:${Math.random()*80}ms`;c.appendChild(p)}
+  document.body.appendChild(c);setTimeout(()=>c.remove(),1400);
+}
+function view(v){
+  stopTimer();if(QT){clearTimeout(QT);QT=0}if(RO){RO.disconnect();RO=null}
+  document.body.dataset.v=v;
+  document.body.classList.toggle("compact",v==="play");
+  ({home,rank:rankView,diary:diaryView})[v]();
+}
+
+/* ---------- início ---------- */
+let KOP=false;
+const KOPPEN=()=>`<section class="card kop"><span class="lab">Mapa dos climas</span>
+    <div class="kop-top">
+      <p>Cada cidade do jogo tem um código de clima da classificação de <b>Köppen-Geiger</b>, a mais usada no mundo. Ela parte dos mesmos dados do climograma: temperatura média e chuva de cada mês.</p>
+      <div class="kop-links"><a class="btn sm" href="https://www.gloh2o.org/koppen/" target="_blank" rel="noopener">🗺️ Ver o mapa mundial <small style="font-weight:600;opacity:.8">(em inglês)</small></a><a class="lnk small" href="https://pt.wikipedia.org/wiki/Classifica%C3%A7%C3%A3o_clim%C3%A1tica_de_K%C3%B6ppen-Geiger" target="_blank" rel="noopener">Ler mais na Wikipédia</a></div>
+    </div>
+    <details ${KOP?"open":""} ontoggle="KOP=this.open"><summary>Como funciona a classificação</summary>
+      <p class="small mu" style="margin-top:8px">O código tem até três letras, lidas em sequência. Exemplo: <b class="mono">Csa</b> = clima <b>C</b> (temperado), com verão <b>s</b>eco e muito quente (<b>a</b>).</p>
+      <div class="kgrid">
+        <div class="kcol"><h4>1ª letra · grupo</h4><ul>
+          <li><span class="kb A">A</span><span><b>Tropical:</b> todos os meses com média de 18 °C ou mais.</span></li>
+          <li><span class="kb B">B</span><span><b>Seco:</b> a chuva do ano fica abaixo de um limite que depende da temperatura. É testado antes de A, C e D.</span></li>
+          <li><span class="kb C">C</span><span><b>Temperado:</b> mês mais frio entre 0 e 18 °C e pelo menos um mês acima de 10 °C.</span></li>
+          <li><span class="kb D">D</span><span><b>Continental:</b> mês mais frio abaixo de 0 °C e pelo menos um mês acima de 10 °C.</span></li>
+          <li><span class="kb E">E</span><span><b>Polar:</b> nenhum mês passa de 10 °C.</span></li>
+        </ul></div>
+        <div class="kcol"><h4>2ª letra · chuva</h4><ul>
+          <li><span class="kb n">f</span><span><b>Úmido o ano todo:</b> sem estação seca.</span></li>
+          <li><span class="kb n">m</span><span><b>Monção</b> (só no A): estação seca curta, compensada por muita chuva no resto do ano.</span></li>
+          <li><span class="kb n">w</span><span><b>Inverno seco.</b> No A, é a savana.</span></li>
+          <li><span class="kb n">s</span><span><b>Verão seco.</b> É o clima mediterrâneo.</span></li>
+          <li><span class="kb n">W · S</span><span>No grupo B: <b>W</b> é deserto e <b>S</b> é estepe (semiárido). No E: <b>T</b> é tundra e <b>F</b>, gelo permanente.</span></li>
+        </ul></div>
+        <div class="kcol"><h4>3ª letra · temperatura</h4><ul>
+          <li><span class="kb n">a</span><span><b>Verão muito quente:</b> mês mais quente com 22 °C ou mais.</span></li>
+          <li><span class="kb n">b</span><span><b>Verão ameno:</b> mês mais quente abaixo de 22 °C, com 4 ou mais meses acima de 10 °C.</span></li>
+          <li><span class="kb n">c</span><span><b>Verão curto e fresco:</b> de 1 a 3 meses acima de 10 °C.</span></li>
+          <li><span class="kb n">d</span><span><b>Inverno extremo:</b> mês mais frio abaixo de −38 °C.</span></li>
+          <li><span class="kb n">h · k</span><span>No grupo B: <b>h</b> é quente (média anual de 18 °C ou mais) e <b>k</b> é frio.</span></li>
+        </ul></div>
+      </div>
+      <div class="kex small"><span><b class="mono">Af</b> Singapura · <b class="mono">Csa</b> Lisboa · <b class="mono">Dfb</b> Moscou · <b class="mono">BWh</b> Riade</span>
+        <span class="mu">Os códigos do jogo foram calculados com os dados de cada estação (critérios de Peel et al., 2007); em casos limítrofes, como Nairóbi, vale o código do mapa. Perto de um limite, o código pode diferir do mapa, que usa uma grade de 1 km.</span></div>
+    </details>
+  </section>`;
+function home(){G=null;
+  const rec=ST.rec,got=new Set(ST.diary),td=C.filter(c=>got.has(c.n)).length;
+  $("#app").innerHTML=`<div class="grid2 home">
+  ${KOPPEN()}
+  <section class="card"><span class="lab">Nova expedição</span>
+    <h2>Escolha a rota</h2>
+    <div class="lvs">${Object.keys(LV).map(k=>`<button class="lv" aria-pressed="${lvl==k}" onclick="setLv('${k}')">${thIcon(LV[k].th)}<b>${LV[k].n}</b><small>${LV[k].q} fichas · ${LV[k].d}${rec[cat(k,timerOn)]?` · recorde: ${rec[cat(k,timerOn)]}`:""}</small></button>`).join("")}</div>
+    <label class="sw"><input type="checkbox" id="tmr" ${timerOn?"checked":""} onchange="setTimer(this.checked)"><span class="knob"></span><span><b>Cronômetro</b><small>${LV.facil.tl} s (Fácil), ${LV.medio.tl} s (Médio) ou ${LV.dificil.tl} s (Difícil) por ficha. Responder rápido rende até +5 pontos.</small></span></label>
+    <button class="btn big" onclick="start()">Começar expedição</button>
+  </section>
+  <div class="stack">
+    <section class="card"><span class="lab">Como jogar</span>
+      <p>Cada ficha mostra um climograma. Descubra de qual das quatro cidades ele é.</p>
+      <div class="chips" style="margin:10px 0"><span class="chip"><i class="a"></i>Barras: chuva (mm)</span><span class="chip"><i class="b"></i>Linha: temperatura (°C)</span></div>
+      <ul class="steps-list small mu"><li>Acerto sem dica: 10 pontos. Com dica: 5 pontos.</li><li>Toque ou passe o mouse nos meses para ver os valores.</li><li>No computador, use A a D (ou 1 a 4) para responder, H para a dica e Enter para avançar.</li></ul>
+    </section>
+    <section class="card"><span class="lab">Seu caderno</span>
+      <p><b>${td}</b> de <b>${C.length}</b> cidades descobertas</p>
+      <div class="pbar" style="margin:8px 0 14px"><i style="width:${Math.round(100*td/C.length)}%"></i></div>
+      <div class="row"><button class="btn ghost sm" onclick="view('diary')">📔 Diário de campo</button><button class="btn ghost sm" onclick="RK.lvl=lvl;RK.timer=timerOn;view('rank')">🏆 Quadro de honra</button></div>
+      <p class="mu small" style="margin-top:12px">${C.length} cidades com normais climatológicas de instituições como INMET, NOAA, OMM e serviços meteorológicos nacionais. A fonte de cada cidade aparece depois da resposta.</p>
+    </section>
+  </div></div>`;
+}
+function setLv(k){lvl=k;ST.lvl=k;svS();home()}
+function setTimer(on){timerOn=on;ST.timer=on;svS();home();const t=$("#tmr");if(t)t.focus()}
+
+/* ---------- jogo ---------- */
+function start(){
+  const pool=C.filter(LV[lvl].f);
+  G={lv:lvl,pool,r:sh(pool).slice(0,LV[lvl].q),i:0,s:0,st:0,bs:0,ok:0,miss:[],tm:timerOn};
+  document.body.dataset.v="play";document.body.classList.add("compact");
+  round();window.scrollTo({top:0});
+}
+function round(){
+  const c=G.r[G.i],n=G.r.length;
+  G.hint=false;G.done=false;G.sel=-1;G.cw=0;G.o=choices(c,G.r.slice(0,G.i),G.lv);
+  $("#app").innerHTML=`<div class="hud"><div class="hud-r">
+      <span class="pill">${thIcon(LV[G.lv].th,"width:11px;height:18px")} ${LV[G.lv].n}</span>
+      <span class="ficha">FICHA ${G.i+1}/${n}</span><span class="sp"></span>
+      <span class="pill hot" id="st" ${G.st>1?"":"hidden"}>🔥 <b>${G.st}</b></span>
+      <span class="pill">⭐ <b id="sc">${G.s}</b></span><button class="pill xit" id="xt" onclick="quit()" aria-label="Sair da expedição" title="Sair da expedição">✕</button></div>
+    <div class="steps">${G.r.map((_,k)=>`<i class="${k<G.i?"d":k==G.i?"c":""}"></i>`).join("")}</div>
+    ${G.tm?`<div class="thermo" id="tm" role="timer" aria-label="Tempo restante"><span class="bulb"></span><div class="tube"><div class="mer" id="mer"></div></div><b id="tms"></b></div>`:""}
+  </div>
+  <div class="grid2 play">
+    <section class="card"><span class="lab">Climograma</span><h2 class="q">De qual cidade é este climograma?</h2>
+      <div class="plot" id="plot" tabindex="0" role="group" aria-label="Gráfico do climograma. Use as setas do teclado para percorrer os meses."></div>
+      <div class="readout" id="rd" aria-live="off"><span>Toque, passe o mouse ou use as setas do teclado em um mês para ver os valores.</span></div>
+      <div class="chips legend"><span class="chip"><i class="a"></i>Precipitação (mm)</span><span class="chip"><i class="b"></i>Temperatura média (°C)</span></div>
+    </section>
+    <section class="card"><span class="lab">Sua resposta</span>
+      <div class="opts" role="group" aria-label="Alternativas">${G.o.map((o,k)=>`<button class="opt" onclick="pick(${k})"><span class="let">${"ABCD"[k]}</span><span class="nm">${esc(o.n)}<small>${esc(o.p)}</small></span></button>`).join("")}</div>
+      <div class="hintrow"><button class="btn ghost sm" id="hb" onclick="hint()">💡 Dica (−5 pontos)</button></div>
+      <div class="hint" id="hint" hidden aria-live="polite"></div>
+      <div id="fb" aria-live="polite"></div>
+    </section></div>`;
+  drawChart(true);watchSize();startTimer();
+  $("#plot").addEventListener("keydown",plotKey);
+}
+function hint(){
+  if(G.done||G.hint)return;
+  const c=G.r[G.i];
+  G.hint=true;const h=$("#hint");h.hidden=false;h.innerHTML=`<p>💡 ${esc(c.hint)}</p>${phHTML(c)}`;$("#hb").disabled=true;
+}
+/* foto do lugar (arquivos publicados junto da página, carregados só quando a dica é aberta) */
+function phHTML(c){
+  const p=PH[c.n];if(!p)return "";
+  const ar=p[1]/p[2],cv=ar>=1.25&&ar<=2.1,u="img/"+p[0]+".jpg";
+  return `<figure class="ph${cv?" cv":""}"><div class="bx"><img class="bg" src="${u}" alt="" aria-hidden="true"><img class="fg" src="${u}" alt="Foto de um lugar conhecido desta cidade" onerror="this.closest('figure').remove()"></div><figcaption>Foto: ${esc(p[3])} · ${esc(p[4])} · <a href="${esc(p[5])}" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>`;
+}
+/* cronômetro */
+let IV=0;
+function stopTimer(){if(IV){clearInterval(IV);IV=0}}
+function startTimer(){
+  stopTimer();if(!G||!G.tm)return;
+  G.tot=LV[G.lv].tl;G.left=G.tot;G.last=performance.now();paintTimer();
+  IV=setInterval(()=>{
+    const now=performance.now();
+    if(document.hidden){G.last=now;return}
+    G.left-=(now-G.last)/1000;G.last=now;
+    if(G.left<=0){G.left=0;paintTimer();pick(-1);return}
+    paintTimer();
+  },100);
+}
+function paintTimer(){
+  const m=$("#mer");if(!m)return;
+  const p=1-G.left/G.tot,t=$("#tm");
+  m.style.width=(p*100)+"%";
+  t.style.setProperty("--merc",`hsl(${Math.round(205-200*p)} 78% ${p>.7?50:48}%)`);
+  t.classList.toggle("low",G.left<=8);
+  $("#tms").textContent=Math.ceil(G.left)+" s";
+}
+function pick(k){
+  if(!G||G.done)return;
+  G.done=true;stopTimer();
+  const c=G.r[G.i],o=k>=0?G.o[k]:null,ok=o===c,late=k<0;
+  const bonus=ok&&G.tm?Math.round(5*G.left/G.tot):0,base=ok?(G.hint?5:10):0,pts=base+bonus;
+  G.s+=pts;
+  if(ok){G.ok++;G.st++;G.bs=Math.max(G.bs,G.st);boom();if(!ST.diary.includes(c.n)){ST.diary.push(c.n);svS()}}
+  else{G.st=0;G.miss.push({c,o,late})}
+  document.querySelectorAll(".opt").forEach((b,j)=>{
+    b.disabled=true;
+    if(G.o[j]===c)b.classList.add("ok");else if(j===k)b.classList.add("no");else b.classList.add("dim");
+  });
+  $("#hb").disabled=true;$("#sc").textContent=G.s;
+  const st=$("#st");st.hidden=!(G.st>1);st.querySelector("b").textContent=G.st;
+  const stamp=ok?"Encontrada":late?"Tempo esgotado":"Não era";
+  const msg=ok?`${OKS[G.i%4]} <span class="pts">+${pts} pontos${bonus?` (${base} + ${bonus} de bônus de velocidade)`:""}</span>`
+    :late?"O tempo acabou. Veja o que denunciava o clima desta cidade:":`Você marcou ${esc(o.n)}. Veja o que denunciava o clima desta cidade:`;
+  $("#fb").innerHTML=`<div class="fb ${ok?"ok":"no"}"><div class="fb-h"><span class="stamp">${stamp}</span><h3>${esc(c.n)} · ${esc(c.p)}</h3></div>
+  <p>${msg}</p><p>${esc(c.d)}</p>
+  <div class="chips"><span class="chip">🌡️ ${f1(c.avg)} °C por ano</span><span class="chip">↕️ amplitude de ${f1(c.amp)} °C</span><span class="chip">🌧️ ${f0(c.tot)} mm por ano</span></div>
+  <p class="src"><b>Clima:</b> ${esc(c.z)}.<br><b>Fonte:</b> ${esc(c.src)}.</p></div>
+  <button class="btn big" id="nx" onclick="next()">${G.i+1<G.r.length?"Próxima ficha":"Ver resultado"}</button>`;
+  const nx=$("#nx");nx.focus({preventScroll:true});
+  $("#fb").scrollIntoView({block:"nearest",behavior:"smooth"});
+}
+/* sair no meio da expedição (pede um segundo toque para confirmar) */
+function quit(){
+  const b=$("#xt");if(!b||!G)return;
+  if(!QT){b.classList.add("ask");b.textContent="Sair? Toque de novo";QT=setTimeout(()=>{QT=0;const x=$("#xt");if(x){x.classList.remove("ask");x.textContent="✕"}},3500);return}
+  clearTimeout(QT);QT=0;view("home");window.scrollTo({top:0});
+}
+function next(){G.i++;G.i<G.r.length?(round(),window.scrollTo({top:0,behavior:"smooth"})):end()}
+
+/* ---------- fim de jogo e ranking ---------- */
+function rankTitle(p){return p>=.9?["Mestre dos Climas","Gabaritou os mapas do tempo!"]:p>=.7?["Meteorologista","Você lê o clima como poucos."]:p>=.4?["Explorador","Bom caminho! Mais uma expedição?"]:["Aprendiz de nuvem","Todo climatologista começou assim."]}
+function board(key){return (ST.board[key]||[]).slice().sort((a,b)=>b.s-a.s||b.ok-a.ok||a.d-b.d)}
+function end(){
+  document.body.dataset.v="end";document.body.classList.remove("compact");
+  const n=G.r.length,acc=G.ok/n,mx=maxPts(G.lv,G.tm),rt=rankTitle(acc),key=cat(G.lv,G.tm);
+  const st=Math.round(acc*5);
+  G.nb=G.s>0&&!(ST.rec[key]>=G.s);if(G.nb){ST.rec[key]=G.s;svS()}
+  G.saved=false;
+  $("#app").innerHTML=`<div class="grid2 home">
+  <section class="card end-top"><span class="lab">Relatório da expedição</span>${embSVG()}<h2>${rt[0]}</h2><p class="mu">${rt[1]}</p>
+    <p class="stars">${"★".repeat(st)}<span>${"★".repeat(5-st)}</span></p>
+    <p class="score">${G.s}<small> / ${mx} pontos</small></p>
+    <p class="mu small mono">${LV[G.lv].n.toUpperCase()}${G.tm?" · COM CRONÔMETRO":""} · ${G.ok} DE ${n} CIDADES · SEQUÊNCIA MÁX. ${G.bs}</p>
+    ${G.nb?`<p style="margin-top:8px;font-weight:800">🎉 Novo recorde neste nível!</p>`:""}
+    <div class="row c" style="margin-top:16px"><button class="btn" onclick="start()">Nova expedição</button><button class="btn ghost" onclick="view('home')">Trocar de nível</button></div>
+  </section>
+  <div class="stack">
+  <section class="card" id="save"><span class="lab">Quadro de honra</span>
+    <h2>Registre seu nome</h2>
+    <div class="form"><input class="inp" id="nick" maxlength="14" placeholder="Seu apelido" autocomplete="off" value="${esc(ST.nick||"")}" aria-label="Apelido para o ranking">
+      ${SH&&SH.cw!==false?`<label class="chk"><input type="checkbox" id="shr" checked> Também no ranking compartilhado</label>`:""}
+      <div class="row"><button class="btn" onclick="saveScore()">Salvar no ranking</button><button class="btn ghost" onclick="showBoard()">Só ver o ranking</button></div></div>
+    <div id="bd"></div>
+  </section>
+  <section class="card"><span class="lab">Para rever</span>
+    ${G.miss.length?G.miss.map(m=>`<div class="rv"><b>${esc(m.c.n)}</b> <span class="mu small">(${m.late?"tempo esgotado":"você marcou "+esc(m.o.n)})</span><p>${esc(m.c.d)}</p></div>`).join(""):`<p>Nenhum erro. Perfeito!</p>`}
+  </section></div></div>`;
+  if(acc>=.7)boom();window.scrollTo({top:0});
+}
+function sanitize(s){return String(s||"").replace(/[\u0000-\u001f<>]/g,"").trim().slice(0,14)}
+function saveScore(){
+  if(G.saved)return;
+  const nm=sanitize($("#nick").value)||"Anônimo",key=cat(G.lv,G.tm);
+  ST.nick=nm;const e={n:nm,s:G.s,ok:G.ok,q:G.r.length,d:Date.now()};
+  (ST.board[key]=ST.board[key]||[]).push(e);
+  ST.board[key]=board(key).slice(0,30);svS();G.saved=true;G.me=e;
+  const shr=$("#shr");let note="Salvo neste aparelho.";
+  $("#save .form").innerHTML=`<p class="mu small" id="sn">${note}</p>`;
+  if(shr&&shr.checked&&SH){
+    saveShared(key,e).then(()=>{const n=$("#sn");if(n)n.textContent="Salvo neste aparelho e no ranking compartilhado."}).catch(()=>{const n=$("#sn");if(n)n.textContent="Salvo neste aparelho. Não foi possível salvar no ranking compartilhado."});
+  }
+  showBoard();
+}
+function showBoard(){
+  const key=cat(G.lv,G.tm);
+  $("#bd").innerHTML=`<div style="margin-top:12px">${tableHTML(board(key).slice(0,10),G.me)}</div>`;
+}
+function tableHTML(rows,me,max){
+  if(!rows.length)return `<div class="empty">Ainda não há pontuações aqui. Que tal ser a primeira?</div>`;
+  const med=["🥇","🥈","🥉"];
+  return `<table class="rk"><thead><tr><th class="pos">#</th><th>Jogador</th><th class="num">Pontos</th><th class="num">Acertos</th></tr></thead><tbody>${rows.map((r,i)=>`<tr class="${r.me||(me&&r.d===me.d&&r.n===me.n)?"me":""}"><td class="pos">${med[i]||i+1}</td><td class="n">${esc(r.n)}</td><td class="num">${r.s}</td><td class="num">${r.ok}/${r.q}</td></tr>`).join("")}</tbody></table>`;
+}
+async function saveShared(key,e){
+  const ref=SH.db.collection("ranking").doc(SH.uid),sn=await ref.get(),cur=(sn.exists&&sn.data())||{},cats={...(cur.cats||{})},old=cats[key];
+  if(!old||e.s>old.s)cats[key]={s:e.s,ok:e.ok,q:e.q,d:e.d};
+  await ref.set({name:e.n,cats});
+}
+async function loadShared(key){
+  const sn=await SH.db.collection("ranking").limit(500).get(),rows=[];
+  sn.docs.forEach(d=>{const v=d.data();if(v&&v.cats&&v.cats[key])rows.push({n:String(v.name||"?").slice(0,14),s:+v.cats[key].s||0,ok:+v.cats[key].ok||0,q:+v.cats[key].q||0,d:+v.cats[key].d||0,me:d.id===SH.uid})});
+  return rows.sort((a,b)=>b.s-a.s||b.ok-a.ok||a.d-b.d).slice(0,10);
+}
+let clr=0;
+function rankView(){
+  document.body.classList.remove("compact");
+  const key=cat(RK.lvl,RK.timer);
+  $("#app").innerHTML=`<section class="card"><span class="lab">Quadro de honra</span><h2>Melhores expedições</h2>
+    <div class="tabs" role="group" aria-label="Nível">${Object.keys(LV).map(k=>`<button class="tab" aria-pressed="${RK.lvl==k}" onclick="RK.lvl='${k}';rankView()">${LV[k].n}</button>`).join("")}</div>
+    <div class="tabs" role="group" aria-label="Modo"><button class="tab" aria-pressed="${!RK.timer}" onclick="RK.timer=false;rankView()">Sem cronômetro</button><button class="tab" aria-pressed="${RK.timer}" onclick="RK.timer=true;rankView()">Com cronômetro</button></div>
+    ${SH?`<div class="tabs" role="group" aria-label="Onde"><button class="tab" aria-pressed="${RK.src=="local"}" onclick="RK.src='local';rankView()">Neste aparelho</button><button class="tab" aria-pressed="${RK.src=="shared"}" onclick="RK.src='shared';rankView()">Compartilhado</button></div>`:""}
+    <div id="rkb"></div>
+    <p class="mu small" style="margin-top:12px">${RK.src=="shared"&&SH?"O ranking compartilhado reúne quem jogou com acesso a esta página no Claude.":"Este ranking fica salvo apenas neste aparelho e navegador."} Pontuação máxima: ${maxPts(RK.lvl,RK.timer)}.</p>
+    <div class="row" style="margin-top:14px"><button class="btn ghost sm" onclick="view('home')">← Voltar</button>${RK.src=="local"?`<button class="btn ghost sm" id="cl" onclick="clearBoard()">Limpar ranking deste aparelho</button>`:""}</div>
+  </section>`;
+  if(RK.src=="shared"&&SH){
+    $("#rkb").innerHTML=`<div class="empty">Carregando…</div>`;
+    loadShared(key).then(r=>{if($("#rkb"))$("#rkb").innerHTML=tableHTML(r)}).catch(()=>{if($("#rkb"))$("#rkb").innerHTML=`<div class="empty">Não foi possível carregar o ranking compartilhado agora.</div>`});
+  }else $("#rkb").innerHTML=tableHTML(board(key).slice(0,10));
+}
+function clearBoard(){
+  const b=$("#cl");if(!b)return;
+  if(!clr){b.textContent="Tem certeza? Toque de novo";clr=setTimeout(()=>{clr=0;if($("#cl"))$("#cl").textContent="Limpar ranking deste aparelho"},4000);return}
+  clearTimeout(clr);clr=0;ST.board={};svS();rankView();
+}
+
+/* ---------- diário de campo ---------- */
+function diaryView(){
+  document.body.classList.remove("compact");
+  const got=new Set(ST.diary),td=C.filter(c=>got.has(c.n)).length;
+  $("#app").innerHTML=`<section class="card"><span class="lab">Diário de campo</span><h2>${td} de ${C.length} cidades descobertas</h2>
+    <p class="mu">Acerte uma cidade para registrá-la aqui. As que faltam aparecem com o continente onde ficam.</p>
+    <div class="pbar" style="margin:10px 0 4px"><i style="width:${Math.round(100*td/C.length)}%"></i></div>
+    ${CONTS.map(ct=>{const L=C.filter(c=>c.ct===ct).sort((a,b)=>a.n.localeCompare(b.n,"pt-BR")),g=L.filter(c=>got.has(c.n)).length;
+      return `<div class="cont"><h3>${ct}<span>${g}/${L.length}</span></h3><div class="chips">${L.map(c=>got.has(c.n)?`<span class="city on">${esc(c.n)}<small>${esc(c.k)}</small></span>`:`<span class="city off">???</span>`).join("")}</div></div>`}).join("")}
+    <div class="row" style="margin-top:20px"><button class="btn ghost sm" onclick="view('home')">← Voltar</button></div></section>`;
+}
+
+document.addEventListener("keydown",e=>{
+  if(!G||document.body.dataset.v!=="play"||e.ctrlKey||e.metaKey||e.altKey)return;
+  if(e.target&&e.target.tagName==="INPUT")return;
+  const kk=e.key.toLowerCase();let k="abcd".indexOf(kk);if(k<0)k="1234".indexOf(e.key);
+  if(!G.done&&k>=0&&k<G.o.length){pick(k);return}
+  if(!G.done&&kk==="h"){hint();return}
+  if(e.key==="Enter"&&G.done&&e.target.tagName!=="BUTTON"){const b=$("#nx");if(b)b.click()}
+});
+view("home");
+</script>
+</body></html>
